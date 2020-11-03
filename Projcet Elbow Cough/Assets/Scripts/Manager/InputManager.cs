@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
@@ -10,6 +8,10 @@ public class InputManager : MonoBehaviour
     public static Vector2 mouseDirection;
     public static Vector2 WasdInput;
 
+    private void Awake()
+    {
+        inputActions = new PlayerInputAction();
+    }
 
     private void OnEnable()
     {
@@ -19,6 +21,12 @@ public class InputManager : MonoBehaviour
     private void OnDisable()
     {
         inputActions.Disable();
+    }
+
+    private void Update()
+    {
+        WasdInput = inputActions.Player.Move.ReadValue<Vector2>();
+        mouseDirection = inputActions.Player.Look.ReadValue<Vector2>();
     }
 
 
