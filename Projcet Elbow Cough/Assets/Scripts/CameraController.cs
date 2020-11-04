@@ -9,13 +9,13 @@ public class CameraController : MonoBehaviour
     private Vector3 cameraTarget;
     private Transform playerTransform;
     private Vector3 cameraVelocity;
-    private Vector3 pitchMovement;
-    private Transform camera;
     
+    private Transform camera;
+    private float pitchAngel;
     private void Awake()
     {
         playerTransform = StaticRefrences.PlayerTransform;
-        camera = GetComponentInChildren<Transform>();
+        camera = transform.GetChild(0).transform;
         camera.localPosition = CameraOffset;
         transform.position = playerTransform.position;
     }
@@ -27,7 +27,8 @@ public class CameraController : MonoBehaviour
         cameraTarget = playerTransform.position;
         transform.position = Vector3.SmoothDamp(transform.position, cameraTarget, ref cameraVelocity, SmoothValue, CameraSpeed);
 
-
+        pitchAngel -=  InputManager.mouseDirection.y;
+        transform.localRotation = Quaternion.Euler(pitchAngel, 0f , 0f);
 
     }
 
