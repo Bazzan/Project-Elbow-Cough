@@ -1,13 +1,19 @@
-﻿using UnityEngine;
+﻿using UnityEditor.Rendering;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("PlayerMovement")]
     public float RotationSpeed;
     public float MovementSpeed;
     public float MaxSpeed;
+    public float AccelerationMultiplire;
+    public float AccelerationMultiplierCap;
     public float IsGroundedDistance;
     public LayerMask GroundedMask;
-    public float gravityMultip;
+    public float gravityMultiplier;
+
+    private Vector3 playerVelocity;
     private Vector2 wasdInput;
     private InputManager inputManager;
     private Vector3 forceDirection;
@@ -17,78 +23,87 @@ public class PlayerController : MonoBehaviour
     private Vector3 force;
     private RaycastHit rayHit;
     private CapsuleCollider playerCollider;
-
+    private CameraController cameraController;
+    private CharacterController characterController;
     private void Awake()
     {
-        playerBody = GetComponent<Rigidbody>();
+        //playerBody = GetComponent<Rigidbody>();
         playerCollider = GetComponent<CapsuleCollider>();
+        cameraController = StaticRefrences.CameraParentTransform.GetComponent<CameraController>();
+        characterController = GetComponent<CharacterController>();
     }
 
+    //todo -> gravity refactoring;
     private void FixedUpdate()
     {
-        MovePlayer2();
-        RotatePlayer();
+        RotatePlayer2();
+        MovePlayer();
+        characterController.Move((Vector3.up + Physics.gravity) * (gravityMultiplier + -1) * Time.fixedDeltaTime);
     }
+
 
     private void MovePlayer()
     {
         wasdInput = InputManager.WasdInput;
+        if (wasdInput == Vector2.zero) return;
 
         forceDirection = ((wasdInput.x * transform.right) + (wasdInput.y * transform.forward)).normalized;
-
-        //Debug.Log("grounded");
-
-        forceDirection = Vector3.ProjectOnPlane(forceDirection, rayHit.normal);
-        force = forceDirection * MovementSpeed * Time.fixedDeltaTime;
-        //Debug.Log($"force: {force}, forceDirection {forceDirection}, velocity {playerBody.velocity.magnitude}");
-
-        if (!IsGrounded())
+        if (characterController.velocity.magnitude <= MaxSpeed && characterController.isGrounded)
         {
-            //if (playerBody.velocity.y < 0f)
-            playerBody.velocity += Vector3.up * Physics.gravity.y * ( - 1) * Time.fixedDeltaTime;
+            if (characterController.velocity.magnitude < AccelerationMultiplierCap)
+            {
+                force = forceDirection * MovementSpeed * AccelerationMultiplire * Time.fixedDeltaTime;
+                characterController.Move(Vector3.ClampMagnitude(force, MaxSpeed));
+                return;
+            }
+            force = forceDirection * MovementSpeed * Time.fixedDeltaTime;
+            characterController.Move(Vector3.ClampMagnitude(force, MaxSpeed * 0.99f));
         }
-
-        if (playerBody.velocity.magnitude < MaxSpeed)
-            playerBody.AddForce(force, ForceMode.Impulse);
-
+    }
+    private Vector3 getNormal()
+    {
+        Physics.Raycast(transform.position, Vector3.down, out rayHit, 2f, GroundedMask, QueryTriggerInteraction.Ignore);
+        return rayHit.normal;
     }
 
-
-    private void MovePlayer2()
+    private void Gravity()
     {
+        if (!characterController.isGrounded) { 
+            characterController.SimpleMove((Vector3.up + Physics.gravity) * (gravityMultiplier + -1) * Time.fixedDeltaTime);
+        }
+  
 
-        wasdInput = InputManager.WasdInput;
-        forceDirection = ((wasdInput.x * transform.right) + (wasdInput.y * transform.forward)).normalized;
-
-        forceDirection = Vector3.ProjectOnPlane(forceDirection, rayHit.normal);
-        force = forceDirection * MovementSpeed * Time.fixedDeltaTime;
-
+        Debug.Log(characterController.isGrounded);
+    }
+    private void JumpGravity()
+    {
         if (!IsGrounded())
         {
-            Debug.Log("grounded");
-            playerBody.velocity += Vector3.up * Physics.gravity.y * (gravityMultip +-1) * Time.fixedDeltaTime;
-
+            Debug.Log("not grounded");
+            playerBody.velocity += Vector3.up * Physics.gravity.y * (gravityMultiplier + -1) * Time.fixedDeltaTime;
         }
-        //playerBody.MovePosition(transform.position + force);
+    }
 
-        if (wasdInput == Vector2.zero) return;
-        if(playerBody.velocity.magnitude < 10)
-            playerBody.velocity += force;
-
-
+    private void RotatePlayer2()
+    {
+        yawAngel += Mathf.Clamp(InputManager.mouseDirection.x, -1, 1);
+        Vector3 rotation = new Vector3(0f, (yawAngel) * RotationSpeed, 0f);
+        //playerBody.MoveRotation(Quaternion.Euler(rotation));
+        transform.rotation =(Quaternion.Slerp(transform.rotation, Quaternion.Euler(rotation), Time.fixedDeltaTime * 10));
     }
 
     private void RotatePlayer()
     {
         yawAngel += Mathf.Clamp(InputManager.mouseDirection.x, -1, 1);
         Vector3 rotation = new Vector3(0f, (yawAngel) * RotationSpeed, 0f);
-        playerBody.MoveRotation(Quaternion.Euler(rotation));
+        //playerBody.MoveRotation(Quaternion.Euler(rotation));
+        playerBody.MoveRotation(Quaternion.Slerp(transform.rotation,Quaternion.Euler(rotation), Time.fixedDeltaTime * 10));
     }
 
 
     private bool IsGrounded()
     {
-        return Physics.SphereCast(transform.position + Vector3.up, playerCollider.radius, Vector3.down,
+        return Physics.SphereCast(transform.position + Vector3.up, playerCollider.radius - 0.1f, Vector3.down,
             out rayHit, IsGroundedDistance, GroundedMask, QueryTriggerInteraction.Ignore);
     }
 
