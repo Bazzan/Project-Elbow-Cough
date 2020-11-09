@@ -688,6 +688,7 @@ MonoBehaviour:
   MaxPitchAngel: 60
   MinPitchAngel: -45
   maxDegreesToRotate: 100
+  PitchSpeed: 0.1
 --- !u!4 &1638174409
 Transform:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
     public float MaxPitchAngel;
     public float MinPitchAngel;
     public float maxDegreesToRotate;
+    public float PitchSpeed;
     private Vector3 cameraTarget;
     private Transform playerTransform;
     private Vector3 cameraVelocity;
@@ -26,36 +27,25 @@ public class CameraController : MonoBehaviour
     private void FixedUpdate()
     {
         MoveCamera();
-        transform.rotation = Quaternion.Slerp(transform.rotation,
-            Quaternion.Euler(transform.rotation.x, playerTransform.rotation.eulerAngles.y, transform.rotation.z),
-            Time.fixedDeltaTime * 10f);
-
-        //transform.rotation = Quaternion.RotateTowards(transform.rotation ,
-        //    Quaternion.Euler(transform.rotation.x, playerTransform.rotation.eulerAngles.y, transform.rotation.z),
-        //    maxDegreesToRotate);
+        RotateCameraWithPlayer();
         PitchRotation();
-
-
-
     }
 
     private void MoveCamera()
     {
         cameraTarget = playerTransform.position;
-        transform.position = Vector3.SmoothDamp(transform.position, cameraTarget, ref cameraVelocity, SmoothValue, CameraSpeed, Time.fixedDeltaTime);
+        transform.position = Vector3.SmoothDamp(transform.position, cameraTarget, ref cameraVelocity, SmoothValue, CameraSpeed);
     }
 
-    private void PitchRotation()
+    public void PitchRotation()
     {
-        pitchAngel -= InputManager.mouseDirection.y;
+        pitchAngel -= InputManager.mouseDirection.y * PitchSpeed;
         pitchAngel = Mathf.Clamp(pitchAngel, MinPitchAngel, MaxPitchAngel);
-
         transform.rotation = Quaternion.Euler(pitchAngel, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
     }
 
-    public void RotateCameraWithPlayer(float yRotation)
+    public void RotateCameraWithPlayer()
     {
-        transform.rotation = Quaternion.Euler(transform.rotation.x, yRotation * Mathf.Rad2Deg, transform.rotation.z);
-
+        transform.rotation = Quaternion.Euler(transform.rotation.x, playerTransform.rotation.eulerAngles.y, transform.rotation.z);
     }
 }
