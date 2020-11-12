@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     public float MinPitchAngel;
     public float maxDegreesToRotate;
     public float PitchSpeed;
+
     private Vector3 cameraTarget;
     private Transform playerTransform;
     private Vector3 cameraVelocity;
