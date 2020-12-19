@@ -9,81 +9,63 @@ public class CameraController : MonoBehaviour
     public float MinPitchAngel;
     public float maxDegreesToRotate;
     public float PitchSpeed;
+    public float RotationSpeed;
+
 
     [Header("Collision values")]
     public float CameraCollider;
     public float CameraCollisionDistance;
     public LayerMask CameraCollisionMask;
 
-    private float cameraMaxDistance;
-    private Vector3 cameraTarget;
+
+
+
     private Transform playerTransform;
-    private Vector3 cameraVelocity;
-    private RaycastHit rayHit;
-    private Vector3 collisonCameraOffset;
-    private Transform cameraTransform;
     private float pitchAngel;
+    private Rigidbody playerBody;
+    private float yawAngel;
+
+
+    Vector2 currentDirection;
+    Vector2 rotationVelocity;
+    float DampRotation = 0.03f;
     private void Awake()
     {
-        playerTransform = StaticRefrences.PlayerTransform;
-        cameraTransform = transform.GetChild(0).transform;
-        cameraTransform.localPosition = CameraOffset;
-        transform.position = playerTransform.position;
-        CameraCollider = cameraTransform.GetComponent<SphereCollider>().radius;
-        cameraMaxDistance = Mathf.Abs(CameraOffset.z);
-        //collisonCameraOffset.z = CameraOffset.z;
-        collisonCameraOffset = CameraOffset;
-
-    }
-
-    private void FixedUpdate()
-    {
-
-
+        playerTransform = transform.parent.transform;
+        playerBody = playerTransform.GetComponent<Rigidbody>();
     }
     private void LateUpdate()
     {
-        MoveCamera();
-        RotateCameraWithPlayer();
         PitchRotation();
-        CheckForCollision();
     }
-
-
-    private void CheckForCollision()
-    {
-        Vector3 cameraDirection = cameraTransform.position - transform.position;
-
-
-        if(Physics.SphereCast(transform.position, CameraCollider, cameraDirection, out rayHit, cameraMaxDistance, CameraCollisionMask))
-        {
-            collisonCameraOffset.z = -rayHit.distance;
-            cameraTransform.localPosition = collisonCameraOffset;
-        }
-        else
-        {
-            cameraTransform.localPosition = CameraOffset;
-        }
-        //Debug.Log(rayHit.collider.name);
-
-    }
-
-    private void MoveCamera()
-    {
-        cameraTarget = playerTransform.position;
-        //if(Vector3.Distance(cameraTarget, transform.position) > 0.5f)
-            transform.position = Vector3.SmoothDamp(transform.position , cameraTarget + playerTransform.up *2f, ref cameraVelocity, SmoothValue, CameraSpeed);
-    }
-
     public void PitchRotation()
     {
-        pitchAngel -= InputManager.mouseDirection.y * PitchSpeed;
-        pitchAngel = Mathf.Clamp(pitchAngel, MinPitchAngel, MaxPitchAngel);
-        transform.localRotation = Quaternion.Euler(pitchAngel, transform.rotation.eulerAngles.y, 0f);
-    }
+        //Vector2 targetMouseDirection = new Vector2(0f, Mathf.Clamp(InputManager.mouseDirection.y, -1, 1));
+        //currentDirection = Vector2.SmoothDamp(currentDirection, targetMouseDirection, ref rotationVelocity, DampRotation);
 
-    public void RotateCameraWithPlayer()
-    {
-        transform.rotation = Quaternion.Euler(transform.rotation.x, playerTransform.rotation.eulerAngles.y, 0f);
+        //Debug.Log(currentDirection);
+
+        //transform.localRotation *= Quaternion.AngleAxis(currentDirection.y * RotationSpeed, Vector3.left);
+
+
+        pitchAngel -= Mathf.Clamp( InputManager.mouseDirection.y, -1,1) * PitchSpeed;
+        pitchAngel = Mathf.Clamp(pitchAngel, MinPitchAngel, MaxPitchAngel);
+        transform.localRotation = Quaternion.Euler(pitchAngel, 0f, 0f);
     }
+    //public void RotatePlayer()
+    //{
+
+
+    //    yawAngel = Mathf.Clamp(InputManager.mouseDirection.x, -1, 1);
+    //    Vector3 rotation = new Vector3(0f, (yawAngel * RotationSpeed), 0f);
+    //    Debug.Log(rotation.y +"   " + yawAngel );
+    //    playerBody.MoveRotation(Quaternion.Euler(rotation + playerTransform.rotation.eulerAngles));
+    //    //playerTransform.rotation =   Quaternion.Euler(rotation + playerTransform.rotation.eulerAngles );
+    //    //playerBody.rotation =  yawAngel *  
+    //    //playerBody.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.Euler(rotation), Time.fixedDeltaTime));
+    //}
+    //public void RotateCameraWithPlayer()
+    //{
+    //    transform.rotation = Quaternion.Euler(transform.rotation.x, playerTransform.rotation.eulerAngles.y, 0f);
+    //}
 }
