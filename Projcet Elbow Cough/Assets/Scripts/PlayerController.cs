@@ -34,6 +34,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerVelocity = Vector2.zero;
     private Vector2 rotationVelocity = Vector2.zero;
     private Vector2 currentDirection = Vector2.zero;
+    public float PitchSpeed;
+    public float MinPitchAngel;
+    public float MaxPitchAngel;
+
+    private Transform cameraTransform;
 
     private void Awake()
     {
@@ -41,7 +46,7 @@ public class PlayerController : MonoBehaviour
         playerCollider = GetComponent<CapsuleCollider>();
         cameraController = StaticRefrences.CameraParentTransform.GetComponent<CameraController>();
         characterController = GetComponent<CharacterController>();
-
+        cameraTransform = StaticRefrences.CameraTransform;
     }
 
     //todo -> gravity refactoring;
@@ -57,6 +62,7 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
+        PitchCamera();
         RotatePlayer2();
 
     }
@@ -142,21 +148,30 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    private void PitchCamera()
+    {
+        pitchAngel += -InputManager.mouseDirection.y * PitchSpeed;
+        pitchAngel = Mathf.Clamp(pitchAngel, MinPitchAngel, MaxPitchAngel);
+        cameraTransform.localRotation = Quaternion.Euler(pitchAngel, 0f, 0f);
+    }
     private void RotatePlayer2()
     {
 
-        
-        Vector2 targetMouseDirection = new Vector2(Mathf.Clamp(InputManager.mouseDirection.x, -1, 1), 0f);
+
+        //Vector2 targetMouseDirection = new Vector2(Mathf.Clamp(InputManager.mouseDirection.x, -1, 1), 0f);
+        Vector2 targetMouseDirection = InputManager.mouseDirection;
         currentDirection = Vector2.SmoothDamp(currentDirection, targetMouseDirection , ref rotationVelocity, DampRotation);
 
         Debug.Log(currentDirection);
-        transform.rotation *= Quaternion.AngleAxis(currentDirection.x * RotationSpeed, Vector3.up);
+        //transform.rotation *= Quaternion.AngleAxis(currentDirection.x * RotationSpeed, Vector3.up);
+        transform.rotation *= Quaternion.Euler(0f, currentDirection.x * RotationSpeed, 0f);
 
         //yawAngel += Mathf.Clamp(InputManager.mouseDirection.x, -1, 1);
-        
+
         //Vector3 rotation = new Vector3(0f, (yawAngel) * RotationSpeed, 0f);
-        
-        
+
+
         //rotation = Vector3.SmoothDamp(transform.rotation.eulerAngles, rotation, ref rotationVelocity, DampRotation);
 
         //playerBody.MoveRotation(Quaternion.Euler(rotation));
