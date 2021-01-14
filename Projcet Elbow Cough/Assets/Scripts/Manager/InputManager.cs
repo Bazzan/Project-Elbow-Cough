@@ -32,7 +32,7 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        WasdInput = inputActions.Player.Move.ReadValue<Vector2>().normalized;
+        WasdInput = inputActions.Player.Move.ReadValue<Vector2>();
         mouseDirection = inputActions.Player.Look.ReadValue<Vector2>();
         //if (mouseDirection.x > 0.05f) mouseDirection.x = 1f;
         //if (mouseDirection.x < -0.05f) mouseDirection.x = -1f;

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class FPSCharacterController : MonoBehaviour
@@ -24,7 +25,6 @@ public class FPSCharacterController : MonoBehaviour
     private Vector2 wasdInput;
     private Vector3 forceDirection;
     private CharacterController playerController;
-    private float pitchAngel;
     private Vector3 force;
     private RaycastHit rayHit;
     private CapsuleCollider playerCollider;
@@ -38,32 +38,51 @@ public class FPSCharacterController : MonoBehaviour
     //public float MinPitchAngel;
     //public float MaxPitchAngel;
 
-    private Transform cameraTransform;
+    private float yawAngel;
+    
+    public Transform cameraTransform;
+
+    public float CameraDamp;
+    private Vector3 cameraVelocity;
+
+
+    // private void LateUpdate()
+    // {
+    //     RotatePlayer2();
+    //
+    // }
+
+    
     private void Awake()
     {
         playerController = GetComponent<CharacterController>();
         playerCollider = GetComponent<CapsuleCollider>();
         cameraController = StaticRefrences.CameraParentTransform.GetComponent<CameraController>();
         characterController = GetComponent<CharacterController>();
-        cameraTransform = transform.GetChild(0).transform;
+        // cameraTransform = transform.GetChild(0).transform;
+    }
+
+    private void SetRotation()
+    {
+        transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y,0f);;
     }
 
     private void FixedUpdate()
     {
         MovePlayer();
+
+        SetRotation();
     }
-
-    private void LateUpdate()
-    {
-        RotatePlayer2();
-    }
-
-
+    
+    
     private void RotatePlayer2()
     {
-        Vector2 targetMouseDirection = InputManager.mouseDirection;
-        currentDirection = Vector2.SmoothDamp(currentDirection, targetMouseDirection, ref rotationVelocity, DampRotation);
-        transform.rotation *= Quaternion.Euler(0f, currentDirection.x * RotationSpeed * Time.deltaTime, 0f);
+        // Vector2 targetMouseDirection = InputManager.mouseDirection;
+        // currentDirection = Vector2.SmoothDamp(currentDirection, targetMouseDirection, ref rotationVelocity, DampRotation);
+        // transform.rotation *= Quaternion.Euler(0f, currentDirection.x * RotationSpeed * Time.fixedDeltaTime, 0f);
+        
+        yawAngel += InputManager.mouseDirection.x * RotationSpeed * Time.deltaTime;
+        transform.localRotation = Quaternion.AngleAxis(yawAngel, Vector3.up);
     }
     private void MovePlayer()
     {
@@ -74,6 +93,15 @@ public class FPSCharacterController : MonoBehaviour
         forceDirection = Vector3.ProjectOnPlane(forceDirection, GetNormal() );
         force = forceDirection * MovementSpeed ;
         playerController.Move(Vector3.SmoothDamp(playerController.velocity, force, ref playerVelocity, DampSpeed) * Time.fixedDeltaTime);
+        
+        
+        
+        
+        cameraTransform.position = Vector3.SmoothDamp( cameraTransform.position ,transform.GetChild(0).position, ref cameraVelocity, CameraDamp) ;
+        
+        
+        
+        
         //Debug.Log(force + "   ," + forceDirection + " " + MovementSpeed);
         //Debug.Log($"force: {force}, forceDirection {forceDirection}, velocity {playerBody.velocity.magnitude}");
     }
