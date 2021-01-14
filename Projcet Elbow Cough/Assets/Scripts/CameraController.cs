@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public Transform Player;
     public Transform CameraTarget;
     public Vector3 CameraOffset;
     public float MaxPitchAngel;
@@ -23,9 +24,10 @@ public class CameraController : MonoBehaviour
         rotX += InputManager.mouseDirection.x * YawSpeed * Time.deltaTime;
         rotY += InputManager.mouseDirection.y * PitchSpeed * Time.deltaTime;
         rotY = Mathf.Clamp(rotY, MinPitchAngel, MaxPitchAngel);
+
         transform.localRotation = Quaternion.Euler(-rotY, rotX, 0f);
-        
-        
+
+        transform.position = CameraTarget.position;
         // PitchCamera();
     }
     private void PitchCamera()

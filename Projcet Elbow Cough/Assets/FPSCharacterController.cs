@@ -46,11 +46,14 @@ public class FPSCharacterController : MonoBehaviour
     private Vector3 cameraVelocity;
 
 
-    // private void LateUpdate()
-    // {
-    //     RotatePlayer2();
-    //
-    // }
+    private void LateUpdate()
+    {
+
+        // cameraTransform.position = transform.GetChild(0).position;
+        transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y,0f);;
+
+
+    }
 
     
     private void Awake()
@@ -62,16 +65,17 @@ public class FPSCharacterController : MonoBehaviour
         // cameraTransform = transform.GetChild(0).transform;
     }
 
-    private void SetRotation()
+
+
+    private void Update()
     {
-        transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y,0f);;
+        MovePlayer();
+
     }
 
     private void FixedUpdate()
     {
-        MovePlayer();
 
-        SetRotation();
     }
     
     
@@ -86,23 +90,25 @@ public class FPSCharacterController : MonoBehaviour
     }
     private void MovePlayer()
     {
-        wasdInput = InputManager.WasdInput;
+        wasdInput = InputManager.WasdInput.normalized;
         //Debug.Log(IsGrounded());
         //if (wasdInput == Vector2.zero) return;
         forceDirection = ((wasdInput.x * transform.right) + (wasdInput.y * transform.forward));
-        forceDirection = Vector3.ProjectOnPlane(forceDirection, GetNormal() );
-        force = forceDirection * MovementSpeed ;
-        playerController.Move(Vector3.SmoothDamp(playerController.velocity, force, ref playerVelocity, DampSpeed) * Time.fixedDeltaTime);
+        // forceDirection = Vector3.ProjectOnPlane(forceDirection, GetNormal() );
+        force = forceDirection * (MovementSpeed * Time.deltaTime);
+        // Debug.Log(Vector3.SmoothDamp(transform.position, force , ref playerVelocity,DampSpeed,10,Time.fixedDeltaTime));
         
-        
-        
-        
-        cameraTransform.position = Vector3.SmoothDamp( cameraTransform.position ,transform.GetChild(0).position, ref cameraVelocity, CameraDamp) ;
-        
-        
-        
-        
-        //Debug.Log(force + "   ," + forceDirection + " " + MovementSpeed);
+        // playerController.Move(Vector3.SmoothDamp(transform.position, force , ref playerVelocity,DampSpeed,10,Time.fixedDeltaTime) );
+        playerController.Move(force);
+
+
+
+        // cameraTransform.position = Vector3.SmoothDamp( cameraTransform.position ,transform.GetChild(0).position, ref cameraVelocity, Time.deltaTime) ;
+
+
+
+
+        Debug.Log(force + "   ," + forceDirection + " " + playerVelocity);
         //Debug.Log($"force: {force}, forceDirection {forceDirection}, velocity {playerBody.velocity.magnitude}");
     }
 
