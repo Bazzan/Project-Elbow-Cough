@@ -51,8 +51,9 @@ public class FPSCharacterController : MonoBehaviour
 
         // cameraTransform.position = transform.GetChild(0).position;
         transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y,0f);;
-
-
+        cameraTransform.position = Vector3.SmoothDamp( cameraTransform.position ,transform.GetChild(0).position, ref cameraVelocity, CameraDamp) ;
+        
+        
     }
 
     

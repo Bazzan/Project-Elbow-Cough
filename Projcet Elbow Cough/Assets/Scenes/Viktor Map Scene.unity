@@ -1756,6 +1756,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1504002499716129809, guid: eb5f1079439cd80449e2f677ae600e83, type: 3}
+      propertyPath: slerpTime
+      value: 0.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504002499716129809, guid: eb5f1079439cd80449e2f677ae600e83, type: 3}
       propertyPath: PitchSpeed
       value: 15
       objectReference: {fileID: 0}
@@ -1769,7 +1773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1504002501292763150, guid: eb5f1079439cd80449e2f677ae600e83, type: 3}
       propertyPath: CameraDamp
-      value: 0.05
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1504002501292763150, guid: eb5f1079439cd80449e2f677ae600e83, type: 3}
       propertyPath: MovementSpeed
