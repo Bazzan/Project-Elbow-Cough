@@ -1753,7 +1753,11 @@ PrefabInstance:
       objectReference: {fileID: 77074732}
     - target: {fileID: 1504002499716129809, guid: eb5f1079439cd80449e2f677ae600e83, type: 3}
       propertyPath: YawSpeed
-      value: 25
+      value: 30.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504002499716129809, guid: eb5f1079439cd80449e2f677ae600e83, type: 3}
+      propertyPath: lerpTime
+      value: 0.51
       objectReference: {fileID: 0}
     - target: {fileID: 1504002499716129809, guid: eb5f1079439cd80449e2f677ae600e83, type: 3}
       propertyPath: slerpTime

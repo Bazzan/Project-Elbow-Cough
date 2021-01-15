@@ -11,6 +11,8 @@ public class CameraController : MonoBehaviour
     public float PitchSpeed;
     public float YawSpeed;
     public float slerpTime;
+    public float lerpTime;
+
     private float pitchAngel;
     private float rotX;
     private float rotY;
@@ -28,7 +30,8 @@ public class CameraController : MonoBehaviour
         Quaternion TargetRotation = Quaternion.Euler(-rotY,rotX,0f);
         
         // transform.localRotation = Quaternion.Euler(-rotY, rotX, 0f);
-        transform.localRotation = Quaternion.Slerp(transform.localRotation,TargetRotation, slerpTime);
+        // transform.localRotation = Quaternion.Slerp(transform.localRotation,TargetRotation, slerpTime);
+            transform.localRotation = Quaternion.Lerp(transform.localRotation,TargetRotation, lerpTime);
         transform.position = CameraTarget.position;
         // PitchCamera();
     }
