@@ -11,13 +11,16 @@ public class FPSCharacterController : MonoBehaviour
 
     public LayerMask GroundedMask;
     public float GravityMultiplier;
+    public float gravity;
 
-    private float gravity;
-    private float MaxSpeed;
+    public float Jumpforce;
+    public float MaxSpeed;
+    public float Decelleration;
+
+    [HideInInspector] public bool isGoingToJump;
     private float BackwardsSpeedMultiplier;
     private float AccelerationMultiplire;
     private float AccelerationMultiplierCap;
-    private float Jumpforce;
     private Vector3 gravityForce;
     public float IsGroundedDistance;
 
@@ -58,7 +61,9 @@ public class FPSCharacterController : MonoBehaviour
         playerCollider = GetComponent<CapsuleCollider>();
         cameraController = StaticRefrences.CameraParentTransform.GetComponent<CameraController>();
         characterController = GetComponent<CharacterController>();
-        gravity = -Physics.gravity.y;
+        // gravity = -Physics.gravity.y;
+
+
         // cameraTransform = transform.GetChild(0).transform;
     }
 
@@ -91,29 +96,47 @@ public class FPSCharacterController : MonoBehaviour
         forceDirection =
             ((wasdInput.x * transform.right) + (wasdInput.y * transform.forward)); //getting input direction
 
-        CalculateGravityForce(); //gravity
 
-        force = (forceDirection + gravityForce) * (MovementSpeed * Time.deltaTime);
+        if (forceDirection == Vector3.zero)
+        {
+            force *= Time.deltaTime * Decelleration;
+        }
+        else
+        {
+            Vector3 inputForce = (forceDirection * (MovementSpeed * Time.deltaTime));
 
+            force = Vector3.ClampMagnitude(inputForce, MaxSpeed) + force.y * Vector3.up;
+        }
+
+        if (isGoingToJump)
+            force += Vector3.up * Jumpforce;
+            CalculateGravityForce(); //gravity
+        // Jump(); // if is going to jump adding force
 
         playerController.Move(force); // add final force
-
-
-        // forceDirection = Vector3.ProjectOnPlane(forceDirection, GetNormal() );
-        // Debug.Log(Vector3.SmoothDamp(transform.position, force , ref playerVelocity,DampSpeed,10,Time.fixedDeltaTime));
-        // playerController.Move(Vector3.SmoothDamp(transform.position, force , ref playerVelocity,DampSpeed,10,Time.fixedDeltaTime) );
-        // cameraTransform.position = Vector3.SmoothDamp( cameraTransform.position ,transform.GetChild(0).position, ref cameraVelocity, Time.deltaTime) ;
 
 
         // Debug.Log(force + "   ," + forceDirection + " " + playerVelocity);
         //Debug.Log($"force: {force}, forceDirection {forceDirection}, velocity {playerBody.velocity.magnitude}");
     }
 
+    public void OnJump()
+    {
+        isGoingToJump = true;
+        // // if (isGoingToJump)
+        // // {
+        //     Debug.Log("jump?");
+        //     force += new Vector3(0f, Jumpforce, 0f);
+        //     // isGoingToJump = false;
+        // // }
+    }
+
     private void CalculateGravityForce()
     {
         if (!characterController.isGrounded)
         {
-            gravityForce += Vector3.up * (Physics.gravity.y * (-1 + GravityMultiplier) * Time.deltaTime);
+            gravityForce += Vector3.up * (-gravity * (-1 + GravityMultiplier) * Time.deltaTime);
+            force += gravityForce;
             // Debug.Log("not grounded");
         }
         else
@@ -147,12 +170,4 @@ public class FPSCharacterController : MonoBehaviour
 
         //Gizmos.DrawLine(transform.position + playerBody.velocity.normalized ,transform.position + playerBody.velocity  );
     }
-
-
-    //private void PitchCamera()
-    //{
-    //    pitchAngel += InputManager.mouseDirection.y * PitchSpeed * Time.deltaTime;
-    //    pitchAngel = Mathf.Clamp(pitchAngel, MinPitchAngel, MaxPitchAngel);
-    //    cameraTransform.localRotation = Quaternion.AngleAxis(pitchAngel, Vector3.left);
-    //}
 }

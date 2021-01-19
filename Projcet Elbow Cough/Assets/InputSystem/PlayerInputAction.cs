@@ -284,7 +284,7 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""f101b0cf-9e56-4fc3-b801-d8232b238b13"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Jump"",

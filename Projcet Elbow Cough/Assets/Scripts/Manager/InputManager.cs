@@ -44,7 +44,7 @@ public class InputManager : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext callbackContext)
     {
-        playerController.AddJumpForce();
+        playerController.OnJump();
     }
     public void OnAttack(InputAction.CallbackContext callbackContext)
     {
