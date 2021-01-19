@@ -3,23 +3,22 @@ using UnityEngine;
 
 public class FPSCharacterController : MonoBehaviour
 {
-    [Header("PlayerMovement")]
-    public float MovementSpeed;
+    [Header("PlayerMovement")] public float MovementSpeed;
     public float DampSpeed;
-    
+
     public float RotationSpeed;
     public float DampRotation;
 
     public LayerMask GroundedMask;
-    
-    
+    public float GravityMultiplier;
+
+    private float gravity;
     private float MaxSpeed;
     private float BackwardsSpeedMultiplier;
     private float AccelerationMultiplire;
     private float AccelerationMultiplierCap;
     private float Jumpforce;
-    private float GravityMultiplier;
-
+    private Vector3 gravityForce;
     public float IsGroundedDistance;
 
     private Vector2 wasdInput;
@@ -33,13 +32,14 @@ public class FPSCharacterController : MonoBehaviour
 
     private Vector3 playerVelocity = Vector2.zero;
     private Vector2 rotationVelocity = Vector2.zero;
+
     private Vector2 currentDirection = Vector2.zero;
     //public float PitchSpeed;
     //public float MinPitchAngel;
     //public float MaxPitchAngel;
 
     private float yawAngel;
-    
+
     public Transform cameraTransform;
 
     public float CameraDamp;
@@ -48,70 +48,81 @@ public class FPSCharacterController : MonoBehaviour
 
     private void LateUpdate()
     {
-
         // cameraTransform.position = transform.GetChild(0).position;
-        transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y,0f);;
-        cameraTransform.position = Vector3.SmoothDamp( cameraTransform.position ,transform.GetChild(0).position, ref cameraVelocity, CameraDamp) ;
-        
-        
     }
 
-    
+
     private void Awake()
     {
         playerController = GetComponent<CharacterController>();
         playerCollider = GetComponent<CapsuleCollider>();
         cameraController = StaticRefrences.CameraParentTransform.GetComponent<CameraController>();
         characterController = GetComponent<CharacterController>();
+        gravity = -Physics.gravity.y;
         // cameraTransform = transform.GetChild(0).transform;
     }
-
 
 
     private void Update()
     {
         MovePlayer();
-
+        transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0f);
+        ;
+        cameraTransform.position = Vector3.SmoothDamp(cameraTransform.position, transform.GetChild(0).position,
+            ref cameraVelocity, CameraDamp);
     }
 
-    private void FixedUpdate()
-    {
 
-    }
-    
-    
     private void RotatePlayer2()
     {
         // Vector2 targetMouseDirection = InputManager.mouseDirection;
         // currentDirection = Vector2.SmoothDamp(currentDirection, targetMouseDirection, ref rotationVelocity, DampRotation);
         // transform.rotation *= Quaternion.Euler(0f, currentDirection.x * RotationSpeed * Time.fixedDeltaTime, 0f);
-        
+
         yawAngel += InputManager.mouseDirection.x * RotationSpeed * Time.deltaTime;
         transform.localRotation = Quaternion.AngleAxis(yawAngel, Vector3.up);
     }
+
     private void MovePlayer()
     {
         wasdInput = InputManager.WasdInput.normalized;
-        //Debug.Log(IsGrounded());
-        //if (wasdInput == Vector2.zero) return;
-        forceDirection = ((wasdInput.x * transform.right) + (wasdInput.y * transform.forward));
+
+
+        forceDirection =
+            ((wasdInput.x * transform.right) + (wasdInput.y * transform.forward)); //getting input direction
+
+        CalculateGravityForce(); //gravity
+
+        force = (forceDirection + gravityForce) * (MovementSpeed * Time.deltaTime);
+
+
+        playerController.Move(force); // add final force
+
+
         // forceDirection = Vector3.ProjectOnPlane(forceDirection, GetNormal() );
-        force = forceDirection * (MovementSpeed * Time.deltaTime);
         // Debug.Log(Vector3.SmoothDamp(transform.position, force , ref playerVelocity,DampSpeed,10,Time.fixedDeltaTime));
-        
         // playerController.Move(Vector3.SmoothDamp(transform.position, force , ref playerVelocity,DampSpeed,10,Time.fixedDeltaTime) );
-        playerController.Move(force);
-
-
-
         // cameraTransform.position = Vector3.SmoothDamp( cameraTransform.position ,transform.GetChild(0).position, ref cameraVelocity, Time.deltaTime) ;
 
 
-
-
-        Debug.Log(force + "   ," + forceDirection + " " + playerVelocity);
+        // Debug.Log(force + "   ," + forceDirection + " " + playerVelocity);
         //Debug.Log($"force: {force}, forceDirection {forceDirection}, velocity {playerBody.velocity.magnitude}");
     }
+
+    private void CalculateGravityForce()
+    {
+        if (!characterController.isGrounded)
+        {
+            gravityForce += Vector3.up * (Physics.gravity.y * (-1 + GravityMultiplier) * Time.deltaTime);
+            // Debug.Log("not grounded");
+        }
+        else
+        {
+            gravityForce = Vector3.zero;
+            // Debug.Log("grounded");
+        }
+    }
+
 
     private Vector3 GetNormal()
     {
@@ -136,8 +147,6 @@ public class FPSCharacterController : MonoBehaviour
 
         //Gizmos.DrawLine(transform.position + playerBody.velocity.normalized ,transform.position + playerBody.velocity  );
     }
-
-
 
 
     //private void PitchCamera()
