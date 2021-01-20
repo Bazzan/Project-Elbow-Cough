@@ -15,7 +15,7 @@ public class StaticRefrences : MonoBehaviour
     {
         PlayerTransform = Player.transform;
         CameraTransform = Camera.transform;
-        CameraParentTransform = CameraTransform.parent.transform;
+        // CameraParentTransform = CameraTransform.parent.transform;
     
     }
 }
