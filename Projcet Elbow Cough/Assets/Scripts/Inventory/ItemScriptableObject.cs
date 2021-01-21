@@ -17,8 +17,14 @@ public class ItemScriptableObject : ScriptableObject
     [SerializeField] private int[] ignoredStatIDfromA;
     [SerializeField] private int[] ignoredStatIDfromB;
 
+    [SerializeField] private StatIntervals[] array;
+
+    [System.Serializable]
     struct StatIntervals
-    { }
+    {
+        public float a; public float b;
+    }
+
 
 
 }
