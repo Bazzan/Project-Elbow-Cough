@@ -14,10 +14,11 @@ public class FPSCharacterController : MonoBehaviour
     public float gravity;
 
     public float Jumpforce;
+    public float MaxFallSpeed;
     public float MaxSpeed;
     public float Decelleration;
-
-    [HideInInspector] public bool isGoingToJump;
+    
+    [HideInInspector] public bool isGoingToJump = false;
     private float BackwardsSpeedMultiplier;
     private float AccelerationMultiplire;
     private float AccelerationMultiplierCap;
@@ -37,6 +38,10 @@ public class FPSCharacterController : MonoBehaviour
     private Vector2 rotationVelocity = Vector2.zero;
 
     private Vector2 currentDirection = Vector2.zero;
+
+
+    Vector3 jumpVector = Vector3.up;
+
     //public float PitchSpeed;
     //public float MinPitchAngel;
     //public float MaxPitchAngel;
@@ -59,7 +64,7 @@ public class FPSCharacterController : MonoBehaviour
     {
         playerController = GetComponent<CharacterController>();
         playerCollider = GetComponent<CapsuleCollider>();
-        cameraController = StaticRefrences.CameraParentTransform.GetComponent<CameraController>();
+        cameraController = StaticRefrences.CameraTransform.GetComponent<CameraController>();
         characterController = GetComponent<CharacterController>();
         // gravity = -Physics.gravity.y;
 
@@ -70,6 +75,9 @@ public class FPSCharacterController : MonoBehaviour
 
     private void Update()
     {
+        
+        Debug.Log(isGoingToJump + "yooo ");
+
         MovePlayer();
         transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0f);
         ;
@@ -92,6 +100,10 @@ public class FPSCharacterController : MonoBehaviour
     {
         wasdInput = InputManager.WasdInput.normalized;
 
+        // if (characterController.isGrounded && force.y < 0)
+        // {
+        //     force.y = 0f;
+        // }
 
         forceDirection =
             ((wasdInput.x * transform.right) + (wasdInput.y * transform.forward)); //getting input direction
@@ -99,49 +111,63 @@ public class FPSCharacterController : MonoBehaviour
 
         if (forceDirection == Vector3.zero)
         {
-            force *= Time.deltaTime * Decelleration;
+            force.x *= Time.deltaTime * Decelleration;
+            force.z *= Time.deltaTime * Decelleration;
         }
         else
         {
             Vector3 inputForce = (forceDirection * (MovementSpeed * Time.deltaTime));
 
-            force = Vector3.ClampMagnitude(inputForce, MaxSpeed) + force.y * Vector3.up;
+            force = Vector3.ClampMagnitude(inputForce, MaxSpeed);
         }
-
-        if (isGoingToJump)
-            force += Vector3.up * Jumpforce;
-            CalculateGravityForce(); //gravity
-        // Jump(); // if is going to jump adding force
 
         playerController.Move(force); // add final force
 
+        // if (InputManager.inputActions.Player.Jump. && characterController.isGrounded)
+        // {
+        //     force.y += Mathf.Sqrt(Jumpforce * -3.0f * -gravity);
+        //     Debug.Log("jump-> fps");
+        //
+        // }
+        if (!isGorunded())
+            CalculateGravityForce(); //gravity
 
+        
+        Jump();
         // Debug.Log(force + "   ," + forceDirection + " " + playerVelocity);
         //Debug.Log($"force: {force}, forceDirection {forceDirection}, velocity {playerBody.velocity.magnitude}");
     }
 
-    public void OnJump()
+    public void Jump()
     {
-        isGoingToJump = true;
-        // // if (isGoingToJump)
-        // // {
-        //     Debug.Log("jump?");
-        //     force += new Vector3(0f, Jumpforce, 0f);
-        //     // isGoingToJump = false;
-        // // }
+        if (isGoingToJump)
+        {
+            jumpVector.y = 0;
+            jumpVector.y += Jumpforce;
+            // jumpVector.y += Mathf.Sqrt(Jumpforce * -3.0f * -gravity);
+            Debug.Log(characterController.name);
+            characterController.Move(jumpVector );
+            Debug.Log(jumpVector);
+            isGoingToJump = false;
+
+        }
     }
 
     private void CalculateGravityForce()
     {
         if (!characterController.isGrounded)
         {
-            gravityForce += Vector3.up * (-gravity * (-1 + GravityMultiplier) * Time.deltaTime);
-            force += gravityForce;
-            // Debug.Log("not grounded");
+            Debug.Log((-gravity * (-1 + GravityMultiplier) * Time.deltaTime));
+            // gravityForce += Vector3.up * (-gravity * (-1 + GravityMultiplier) * Time.deltaTime);
+            jumpVector.y += (-gravity * (-1 + GravityMultiplier) * Time.deltaTime);
+            characterController.Move(Vector3.ClampMagnitude(jumpVector, MaxFallSpeed) );
+            // force += gravityForce;
+            Debug.Log("not grounded " + characterController.isGrounded);
         }
         else
         {
-            gravityForce = Vector3.zero;
+            force.y = 0f;
+            // gravityForce = 0f:    
             // Debug.Log("grounded");
         }
     }
@@ -153,6 +179,10 @@ public class FPSCharacterController : MonoBehaviour
         return rayHit.normal;
     }
 
+    private bool isGorunded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, 2f);
+    }
 
     private void OnDrawGizmosSelected()
     {
