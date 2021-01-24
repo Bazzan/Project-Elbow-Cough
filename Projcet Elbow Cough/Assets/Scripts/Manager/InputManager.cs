@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
 
-    [SerializeField] private Inventory inventory = null; //testing inventory and item generation
+    [SerializeField] private InventoryCanvas inventory = null; //testing inventory and item generation
+    [SerializeField] private PlayerInventoryManager inventoryManager = null;
 
     public static PlayerInputAction inputActions;
 
@@ -63,7 +64,7 @@ public class InputManager : MonoBehaviour
 
     public void OnTestInventory(InputAction.CallbackContext callbackContext)
     {
-        inventory.GenerateItem(); //testing inventory and item generation
+        inventoryManager.GenerateItem(); //testing inventory and item generation
     }
 
 }
