@@ -27,7 +27,7 @@ public class InputManager : MonoBehaviour
 
     private void OnEnable()
     {
-        //inputActions.Player.Jump.performed += OnJump;
+        inputActions.Player.Jump.performed += OnJump;
         inputActions.Player.Fire.performed += OnAttack;
         inputActions.Player.OpenInventory.performed += OnOpenInventory;
         inputActions.Player.TestInventory.performed += OnTestInventory;
@@ -47,10 +47,10 @@ public class InputManager : MonoBehaviour
     }
 
 
-    //public void OnJump(InputAction.CallbackContext callbackContext)
-    //{
-    //    playerController.OnJump();
-    //}
+    public void OnJump(InputAction.CallbackContext callbackContext)
+    {
+        playerController.Jump();
+    }
     public void OnAttack(InputAction.CallbackContext callbackContext)
     {
 

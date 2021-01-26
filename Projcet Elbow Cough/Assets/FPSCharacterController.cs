@@ -17,7 +17,7 @@ public class FPSCharacterController : MonoBehaviour
     public float MaxFallSpeed;
     public float MaxSpeed;
     public float Decelleration;
-    
+
     [HideInInspector] public bool isGoingToJump = false;
     private float BackwardsSpeedMultiplier;
     private float AccelerationMultiplire;
@@ -75,8 +75,7 @@ public class FPSCharacterController : MonoBehaviour
 
     private void Update()
     {
-        
-        Debug.Log(isGoingToJump + "yooo ");
+        // Debug.Log(isGoingToJump + "yooo ");
 
         MovePlayer();
         transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0f);
@@ -132,24 +131,29 @@ public class FPSCharacterController : MonoBehaviour
         if (!isGorunded())
             CalculateGravityForce(); //gravity
 
-        
-        Jump();
+
+        // Jump();
         // Debug.Log(force + "   ," + forceDirection + " " + playerVelocity);
         //Debug.Log($"force: {force}, forceDirection {forceDirection}, velocity {playerBody.velocity.magnitude}");
     }
 
     public void Jump()
     {
+        Debug.Log(isGoingToJump);
+        Ray ray = new Ray(transform.position, -transform.up);
+
+        Debug.Log(Physics.Raycast(ray, 2f));
+        Debug.Log(transform.position);
+        
         if (isGoingToJump)
         {
             jumpVector.y = 0;
             jumpVector.y += Jumpforce;
             // jumpVector.y += Mathf.Sqrt(Jumpforce * -3.0f * -gravity);
             Debug.Log(characterController.name);
-            characterController.Move(jumpVector );
+            characterController.Move(jumpVector);
             Debug.Log(jumpVector);
             isGoingToJump = false;
-
         }
     }
 
@@ -160,7 +164,7 @@ public class FPSCharacterController : MonoBehaviour
             Debug.Log((-gravity * (-1 + GravityMultiplier) * Time.deltaTime));
             // gravityForce += Vector3.up * (-gravity * (-1 + GravityMultiplier) * Time.deltaTime);
             jumpVector.y += (-gravity * (-1 + GravityMultiplier) * Time.deltaTime);
-            characterController.Move(Vector3.ClampMagnitude(jumpVector, MaxFallSpeed) );
+            characterController.Move(Vector3.ClampMagnitude(jumpVector, MaxFallSpeed));
             // force += gravityForce;
             Debug.Log("not grounded " + characterController.isGrounded);
         }
