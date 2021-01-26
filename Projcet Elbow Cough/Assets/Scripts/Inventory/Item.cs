@@ -8,5 +8,5 @@ public class Item : ScriptableObject
     new public string name = "New item";
     public Sprite icon = null;
     public int placement;
-
+    public Mesh mesh = null;
 }

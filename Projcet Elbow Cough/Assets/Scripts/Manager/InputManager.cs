@@ -6,7 +6,7 @@ public class InputManager : MonoBehaviour
 {
 
     [SerializeField] private InventoryCanvas inventory = null; //testing inventory and item generation
-    [SerializeField] private PlayerInventoryManager inventoryManager = null;
+    [SerializeField] private ItemGenerator itemGenerator = null;
 
     public static PlayerInputAction inputActions;
 
@@ -64,7 +64,7 @@ public class InputManager : MonoBehaviour
 
     public void OnTestInventory(InputAction.CallbackContext callbackContext)
     {
-        inventoryManager.GenerateItem(); //testing inventory and item generation
+        itemGenerator.GenerateWorldItem(); //testing inventory and item generation
     }
 
 }
