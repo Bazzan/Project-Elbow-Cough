@@ -70,7 +70,7 @@ public class FPSCharacterController : MonoBehaviour
         characterController.Move(force); // add final force
         
         if (isGrounded && jumpVector.y < -0.5f)
-            jumpVector.y = 0f;
+            jumpVector.y = -0.5f;
         
 
         CalculateGravityForce(); //gravity
