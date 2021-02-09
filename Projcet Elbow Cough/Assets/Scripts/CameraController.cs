@@ -1,7 +1,8 @@
 ﻿using System;
+using Mirror;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : NetworkBehaviour
 {
     public Transform Player;
     public Transform CameraTarget;
@@ -13,26 +14,41 @@ public class CameraController : MonoBehaviour
     public float slerpTime;
     public float lerpTime;
 
+    private Transform cameraTransform;
+    
     private float pitchAngel;
     private float rotX;
     private float rotY;
- 
-    // private void FixedUpdate()
+    
+    public override void OnStartLocalPlayer()
+    {
+        cameraTransform = Camera.main.transform;
+        cameraTransform.SetParent(transform);
+        
+    }
+
+    // private void Awake()
     // {
-    //     transform.position = CameraTarget.position;
+    //     if (!isLocalPlayer) return;
+    //     cameraTransform = Camera.main.transform;
+    //     cameraTransform.SetParent(transform);
+    //     
     // }
 
     private void LateUpdate()
     {
-        rotX += InputManager.mouseDirection.x * YawSpeed * Time.deltaTime;
+        if (!isLocalPlayer) return;        
+        
+        // Debug.Log(InputManager.mouseDirection.x);
+        rotX = InputManager.mouseDirection.x * YawSpeed * Time.deltaTime;
         rotY += InputManager.mouseDirection.y * PitchSpeed * Time.deltaTime;
         rotY = Mathf.Clamp(rotY, MinPitchAngel, MaxPitchAngel);
         Quaternion TargetRotation = Quaternion.Euler(-rotY,rotX,0f);
         
         // transform.localRotation = Quaternion.Euler(-rotY, rotX, 0f);
         // transform.localRotation = Quaternion.Slerp(transform.localRotation,TargetRotation, slerpTime);
-            transform.localRotation = Quaternion.Lerp(transform.localRotation,TargetRotation, lerpTime);
-        transform.position = CameraTarget.position;
+            cameraTransform.localRotation = Quaternion.Lerp(cameraTransform.localRotation,TargetRotation, lerpTime);
+        cameraTransform.position = CameraTarget.position;
         // PitchCamera();
     }
     private void PitchCamera()
