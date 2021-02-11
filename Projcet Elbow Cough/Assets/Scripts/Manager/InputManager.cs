@@ -16,14 +16,14 @@ public class InputManager : MonoBehaviour
     public static Vector2 WasdInput;
 
 
-    private FPSCharacterController playerController;
+    public static FPSCharacterController playerController;
 
 
     private void Awake()
     {
         inputActions = new PlayerInputAction();
-        playerController = StaticRefrences.PlayerTransform.GetComponent<FPSCharacterController>();
-
+        // playerController = StaticRefrences.PlayerTransform.GetComponent<FPSCharacterController>();
+        
     }
 
     private void OnEnable()

@@ -1,7 +1,7 @@
-using System;
+using Mirror;
 using UnityEngine;
 
-public class FPSCharacterController : MonoBehaviour
+public class FPSCharacterController : NetworkBehaviour
 {
     [Header("PlayerMovement")] public float MovementSpeed;
 
@@ -27,21 +27,38 @@ public class FPSCharacterController : MonoBehaviour
     private Transform cameraTransform;
     private Vector3 cameraVelocity;
     private bool isGrounded;
-    private void Awake()
+
+    public override void OnStartLocalPlayer()
     {
         characterController = GetComponent<CharacterController>();
-        cameraTransform = StaticRefrences.CameraTransform;
+        StaticRefrences.CameraTransform = Camera.main.transform;
+        StaticRefrences.PlayerTransform = transform;
+
+        cameraTransform = Camera.main.transform;
+        InputManager.playerController = this;
+
     }
+
+    // private void Awake()
+    // {
+    //     if (!isLocalPlayer) return;
+    //
+    //     characterController = GetComponent<CharacterController>();
+    //     // cameraTransform = StaticRefrences.CameraTransform;
+    //     // cameraTransform = transform.root.GetComponentInChildren<Camera>().transform;
+    //     cameraTransform = Camera.main.transform;
+    // }
 
     private void Update()
     {
-        // Debug.Log(isGoingToJump + "yooo ");
+        
+        if(!isLocalPlayer) return;
 
         MovePlayer();
         transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0f);
         ;
-        cameraTransform.position = Vector3.SmoothDamp(cameraTransform.position, transform.GetChild(0).position,
-            ref cameraVelocity, CameraDamp);
+        // cameraTransform.position = Vector3.SmoothDamp(cameraTransform.position, transform.GetChild(0).position,
+        //     ref cameraVelocity, CameraDamp);
     }
 
     private void MovePlayer()
@@ -82,6 +99,7 @@ public class FPSCharacterController : MonoBehaviour
 
     public void Jump()
     {
+        if (!isLocalPlayer) return;
         if (isGrounded)
         {
             jumpVector.y = 0f;

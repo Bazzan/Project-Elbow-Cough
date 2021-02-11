@@ -11,11 +11,5 @@ public class StaticRefrences : MonoBehaviour
     public static Transform CameraTransform;
     public static Transform CameraParentTransform;
 
-    private void Awake()
-    {
-        PlayerTransform = Player.transform;
-        CameraTransform = Camera.transform;
-        // CameraParentTransform = CameraTransform.parent.transform;
-    
-    }
+
 }

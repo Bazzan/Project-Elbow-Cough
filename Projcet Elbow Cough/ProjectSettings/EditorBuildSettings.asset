@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/UR init folders/SampleScene.unity
-    guid: d1c3109bdb54ad54c8a2b2838528e640
+    path: Assets/Scenes/sebbes Map Scene 1.unity
+    guid: 8265ccb7075e723458ab9ff095d1b55e
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 25490f95972401b4a9e02e169962cc25, type: 2}

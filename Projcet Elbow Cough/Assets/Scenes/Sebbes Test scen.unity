@@ -1907,6 +1907,9 @@ GameObject:
   - component: {fileID: 1413536721}
   - component: {fileID: 1413536719}
   - component: {fileID: 1413536718}
+  - component: {fileID: 1413536724}
+  - component: {fileID: 1413536723}
+  - component: {fileID: 1413536722}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1990,6 +1993,58 @@ MonoBehaviour:
   PitchSpeed: 0
   MinPitchAngel: 0
   MaxPitchAngel: 0
+--- !u!114 &1413536722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413536717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
+--- !u!114 &1413536723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413536717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2530039631
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!143 &1413536724
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413536717}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1419241332
 GameObject:
   m_ObjectHideFlags: 0
@@ -2551,12 +2606,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55231541e15f6647b1f74904035df66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
   CameraTarget: {fileID: 0}
   CameraOffset: {x: 0, y: 0, z: -10}
   MaxPitchAngel: 60
   MinPitchAngel: -20
   PitchSpeed: 0.2
   YawSpeed: 0
+  slerpTime: 0
+  lerpTime: 0
 --- !u!4 &1638174409
 Transform:
   m_ObjectHideFlags: 0
@@ -2804,6 +2862,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0cee5776ed7cf499b48980b5b69384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
+  itemGenerator: {fileID: 0}
 --- !u!114 &1756513098
 MonoBehaviour:
   m_ObjectHideFlags: 0
