@@ -11,6 +11,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/EnemieNav.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.0.1/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/PlayerController/Scripts/CameraControllernotMe.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -18,10 +19,12 @@
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/PlayerController/Scripts/CameraControllernotMe.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Manager/StaticRefrences.cs" />
       <option value="$PROJECT_DIR$/Assets/FPSCharacterController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Manager/InputManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Inventory/PlayerInventoryManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemieNav.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1nZNpeoYKsTAHvm9ww4aND4airo" />
@@ -81,6 +84,7 @@
       <workItem from="1611593877861" duration="997000" />
       <workItem from="1611682534981" duration="4833000" />
       <workItem from="1612898639554" duration="7262000" />
+      <workItem from="1613063851170" duration="731000" />
     </task>
     <servers />
   </component>

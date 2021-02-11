@@ -11,5 +11,6 @@ public class StaticRefrences : MonoBehaviour
     public static Transform CameraTransform;
     public static Transform CameraParentTransform;
 
+    public static GameObject[] ListOfPlayers;
 
 }

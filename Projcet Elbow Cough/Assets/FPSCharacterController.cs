@@ -27,7 +27,7 @@ public class FPSCharacterController : NetworkBehaviour
     private Transform cameraTransform;
     private Vector3 cameraVelocity;
     private bool isGrounded;
-
+    private int playerIndex;
     public override void OnStartLocalPlayer()
     {
         characterController = GetComponent<CharacterController>();
@@ -36,6 +36,8 @@ public class FPSCharacterController : NetworkBehaviour
 
         cameraTransform = Camera.main.transform;
         InputManager.playerController = this;
+        playerIndex = StaticRefrences.ListOfPlayers.Length;
+        StaticRefrences.ListOfPlayers[playerIndex] = gameObject;
 
     }
 
