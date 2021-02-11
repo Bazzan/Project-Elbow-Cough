@@ -43,9 +43,9 @@ public class PlayerController : MonoBehaviour
     {
         playerBody = GetComponent<Rigidbody>();
         playerCollider = GetComponent<CapsuleCollider>();
-        cameraController = StaticRefrences.CameraParentTransform.GetComponent<CameraController>();
-        characterController = GetComponent<CharacterController>();
-        cameraTransform = StaticRefrences.CameraTransform;
+        // cameraController = StaticRefrences.CameraParentTransform.GetComponent<CameraController>();
+        // characterController = GetComponent<CharacterController>();
+        // cameraTransform = StaticRefrences.CameraTransform;
     }
 
     //todo -> gravity refactoring;

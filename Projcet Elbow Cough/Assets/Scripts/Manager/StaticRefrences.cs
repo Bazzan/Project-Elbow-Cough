@@ -1,16 +1,15 @@
-﻿using UnityEngine;
+﻿using Mirror;
+using UnityEngine;
 
 
 [DefaultExecutionOrder(-100)]
-public class StaticRefrences : MonoBehaviour
+public class StaticRefrences : NetworkBehaviour
 {
     public Transform Player;
     public Camera Camera;
 
-    public static Transform PlayerTransform;
-    public static Transform CameraTransform;
-    public static Transform CameraParentTransform;
-
-    public static GameObject[] ListOfPlayers;
-
+    public Transform PlayerTransform;
+    public Transform CameraTransform;
+    public Transform CameraParentTransform;
+     // public SyncList< GameObject> ListOfPlayers = new  SyncList<GameObject>();
 }

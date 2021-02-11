@@ -1,5 +1,6 @@
 using Mirror;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FPSCharacterController : NetworkBehaviour
 {
@@ -10,13 +11,16 @@ public class FPSCharacterController : NetworkBehaviour
     public LayerMask GroundedMask;
     public float GravityMultiplier;
     public float gravity;
+
     public float Jumpforce;
+
     // public float MaxFallSpeed;
     public float MaxSpeed;
     public float Decelleration;
     public float IsGroundedDistance;
     public float CameraDamp;
-    
+
+    private StaticRefrences staticRefrences;
     private Vector2 wasdInput;
     private Vector3 forceDirection;
     private Vector3 force;
@@ -27,20 +31,41 @@ public class FPSCharacterController : NetworkBehaviour
     private Transform cameraTransform;
     private Vector3 cameraVelocity;
     private bool isGrounded;
-    private int playerIndex;
+    private int playerIndex= 0;
+
     public override void OnStartLocalPlayer()
     {
-        characterController = GetComponent<CharacterController>();
-        StaticRefrences.CameraTransform = Camera.main.transform;
-        StaticRefrences.PlayerTransform = transform;
-
-        cameraTransform = Camera.main.transform;
+        staticRefrences = FindObjectOfType<StaticRefrences>();
+        
         InputManager.playerController = this;
-        playerIndex = StaticRefrences.ListOfPlayers.Length;
-        StaticRefrences.ListOfPlayers[playerIndex] = gameObject;
 
+        characterController = GetComponent<CharacterController>();
+        staticRefrences.CameraTransform = Camera.main.transform;
+        staticRefrences.PlayerTransform = transform;
+        cameraTransform = Camera.main.transform;
+        
+        SetPlayerIndex();
     }
 
+    [Command]
+    public void SetPlayerIndex()
+    {
+        // for (int i = 0; i < staticRefrences.ListOfPlayers.Count; i++)
+        // {
+        //     if (staticRefrences.ListOfPlayers[i] == null)
+        //     {
+        //         playerIndex = i;
+        //         break;
+        //     }
+        // }
+
+        // staticRefrences.ListOfPlayers.Add(gameObject);
+        // playerIndex = staticRefrences.numberOfPlayers;
+
+        
+        // Debug.Log("player index: " + playerIndex + "number of players in game: " +
+        //           staticRefrences.ListOfPlayers.Count);
+    }
     // private void Awake()
     // {
     //     if (!isLocalPlayer) return;
@@ -53,9 +78,10 @@ public class FPSCharacterController : NetworkBehaviour
 
     private void Update()
     {
-        
-        if(!isLocalPlayer) return;
 
+        // Debug.LogError("player index: " + playerIndex + "number of players " + staticRefrences.numberOfPlayers);
+        if (!isLocalPlayer) return;
+        
         MovePlayer();
         transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0f);
         ;
@@ -85,12 +111,12 @@ public class FPSCharacterController : NetworkBehaviour
             force = Vector3.ClampMagnitude(inputForce, MaxSpeed);
         }
 
-        
+
         characterController.Move(force); // add final force
-        
+
         if (isGrounded && jumpVector.y < -0.5f)
             jumpVector.y = -0.5f;
-        
+
 
         CalculateGravityForce(); //gravity
         characterController.Move(jumpVector * Time.deltaTime);
@@ -133,7 +159,7 @@ public class FPSCharacterController : NetworkBehaviour
 
         //Gizmos.DrawLine(transform.position + playerBody.velocity.normalized ,transform.position + playerBody.velocity  );
     }
-    
+
 
     #region not used stuff
 
@@ -149,8 +175,8 @@ public class FPSCharacterController : NetworkBehaviour
             return false;
         }
     }
-    
-    
+
+
     private Vector3 GetNormal()
     {
         Physics.Raycast(transform.position, Vector3.down, out rayHit, 2f, GroundedMask, QueryTriggerInteraction.Ignore);
@@ -168,9 +194,4 @@ public class FPSCharacterController : NetworkBehaviour
     }
 
     #endregion
-
-
-    
-    
-
 }
