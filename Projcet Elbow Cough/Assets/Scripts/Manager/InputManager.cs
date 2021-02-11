@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
 
     [SerializeField] private InventoryCanvas inventory = null; //testing inventory and item generation
     [SerializeField] private ItemGenerator itemGenerator = null;
+    [SerializeField] private PlayerInventoryManager inventoryManager = null;
 
     public static PlayerInputAction inputActions;
 
@@ -31,6 +32,7 @@ public class InputManager : MonoBehaviour
         inputActions.Player.Fire.performed += OnAttack;
         inputActions.Player.OpenInventory.performed += OnOpenInventory;
         inputActions.Player.TestInventory.performed += OnTestInventory;
+        inputActions.Player.PickUpItem.performed += OnPickUpItem;
         inputActions.Enable();
     }
 
@@ -65,6 +67,12 @@ public class InputManager : MonoBehaviour
     public void OnTestInventory(InputAction.CallbackContext callbackContext)
     {
         itemGenerator.GenerateWorldItem(); //testing inventory and item generation
+    }
+
+    public void OnPickUpItem(InputAction.CallbackContext callbackContext)
+    {
+        inventoryManager.PickUpArmor();
+        Debug.Log("E");
     }
 
 }

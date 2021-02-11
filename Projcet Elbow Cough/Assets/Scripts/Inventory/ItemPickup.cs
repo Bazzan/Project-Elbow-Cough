@@ -18,16 +18,8 @@ public class ItemPickup : MonoBehaviour
         GetComponent<MeshFilter>().mesh = item.mesh;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public Item GetItem()
     {
-        if (other.GetComponent<FPSCharacterController>())
-        {
-            inventoryManager.AddArmor(item);
-            Destroy(gameObject);
-        }
-        else
-        {
-            Debug.Log("ItemPickup collided with something else than player");
-        }
+        return item;
     }
 }

@@ -65,6 +65,14 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""PickUpItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""4bd3ac85-e497-47d5-a044-20e9839c7186"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -318,6 +326,17 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""TestInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a520b230-eb0c-48c6-9a25-fe8ff097ab89"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""PickUpItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -901,6 +920,7 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_OpenInventory = m_Player.FindAction("OpenInventory", throwIfNotFound: true);
         m_Player_TestInventory = m_Player.FindAction("TestInventory", throwIfNotFound: true);
+        m_Player_PickUpItem = m_Player.FindAction("PickUpItem", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -968,6 +988,7 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_OpenInventory;
     private readonly InputAction m_Player_TestInventory;
+    private readonly InputAction m_Player_PickUpItem;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -978,6 +999,7 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @OpenInventory => m_Wrapper.m_Player_OpenInventory;
         public InputAction @TestInventory => m_Wrapper.m_Player_TestInventory;
+        public InputAction @PickUpItem => m_Wrapper.m_Player_PickUpItem;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1005,6 +1027,9 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
                 @TestInventory.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInventory;
                 @TestInventory.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInventory;
                 @TestInventory.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestInventory;
+                @PickUpItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickUpItem;
+                @PickUpItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickUpItem;
+                @PickUpItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickUpItem;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1027,6 +1052,9 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
                 @TestInventory.started += instance.OnTestInventory;
                 @TestInventory.performed += instance.OnTestInventory;
                 @TestInventory.canceled += instance.OnTestInventory;
+                @PickUpItem.started += instance.OnPickUpItem;
+                @PickUpItem.performed += instance.OnPickUpItem;
+                @PickUpItem.canceled += instance.OnPickUpItem;
             }
         }
     }
@@ -1189,6 +1217,7 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnOpenInventory(InputAction.CallbackContext context);
         void OnTestInventory(InputAction.CallbackContext context);
+        void OnPickUpItem(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
