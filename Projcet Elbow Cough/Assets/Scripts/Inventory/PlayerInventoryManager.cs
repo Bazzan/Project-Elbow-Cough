@@ -22,6 +22,6 @@ public class PlayerInventoryManager : MonoBehaviour
             Debug.Log("no current object");
             return;
         }
-        AddArmor(raycastScreen.GetCurrentObject().GetComponent<Item>());
+        // AddArmor(raycastScreen.GetCurrentObject().GetComponent<Item>());
     }
 }
