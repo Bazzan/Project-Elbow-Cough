@@ -17,16 +17,18 @@ public class InputManager : MonoBehaviour
 
     public static FPSCharacterController playerController;
 
+    private GamePlayTesting gamePlayTesting;
 
     private void Awake()
     {
         inputActions = new PlayerInputAction();
         // playerController = StaticRefrences.PlayerTransform.GetComponent<FPSCharacterController>();
-        
+        // gamePlayTesting = FindObjectOfType<GamePlayTesting>();
     }
 
     private void OnEnable()
     {
+        inputActions.Player.SpawnEnemie.performed += OnSpawnEnemie;
         inputActions.Player.Jump.performed += OnJump;
         inputActions.Player.Fire.performed += OnAttack;
         inputActions.Player.OpenInventory.performed += OnOpenInventory;
@@ -47,6 +49,10 @@ public class InputManager : MonoBehaviour
 
     }
 
+    public void OnSpawnEnemie(InputAction.CallbackContext callbackContext)
+    {
+        GamePlayTesting.instance.SpawnEnemie();
+    }
 
     public void OnJump(InputAction.CallbackContext callbackContext)
     {

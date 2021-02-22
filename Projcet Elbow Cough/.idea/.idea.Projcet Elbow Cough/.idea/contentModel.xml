@@ -5,7 +5,6 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="FPSCharacterController.cs" t="Include" />
         <e p="InputSystem" t="Include">
           <e p="PlayerInputAction.cs" t="Include" />
         </e>
@@ -416,7 +415,6 @@
           </e>
           <e p="version.txt" t="Include" />
         </e>
-        <e p="PlayerAnimationController.cs" t="Include" />
         <e p="PlayerController" t="Include">
           <e p="Scripts" t="Include">
             <e p="CameraControllernotMe.cs" t="Include" />
@@ -432,6 +430,8 @@
           <e p="Enemies" t="Include">
             <e p="EnemieNav.cs" t="Include" />
           </e>
+          <e p="FPSCharacterController.cs" t="Include" />
+          <e p="GamePlayTesting.cs" t="Include" />
           <e p="Inventory" t="Include">
             <e p="InventoryCanvas.cs" t="Include" />
             <e p="Item.cs" t="Include" />
@@ -451,6 +451,7 @@
               <e p="PlayerSetup.cs" t="Include" />
             </e>
           </e>
+          <e p="PlayerAnimationController.cs" t="Include" />
           <e p="PlayerController.cs" t="Include" />
           <e p="RaycastMiddleOfScreen.cs" t="Include" />
         </e>

@@ -43,12 +43,7 @@ public class ClientInstance : NetworkBehaviour
         
         CmdRequestToSpawn();
     }
-
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        SpawnPlayerOnNetwork();
-    }
+    
 
     [Server]
     private void SpawnPlayerOnNetwork()

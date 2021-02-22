@@ -9,7 +9,7 @@ public class MyNetworkManager : Mirror.NetworkManager
     /// All spawned local players, only kept on the server.
     /// </summary>
     public static Dictionary<NetworkConnection, NetworkIdentity> LocalPlayers = new Dictionary<NetworkConnection, NetworkIdentity>();
-    
+    public static List<NetworkIdentity> LocalPlayersList = new List<NetworkIdentity>();
     public override void OnStartServer()
     {
         base.OnStartServer();
@@ -46,12 +46,15 @@ public class MyNetworkManager : Mirror.NetworkManager
             : Instantiate(playerPrefab);
         
         LocalPlayers[conn] = player.GetComponent<NetworkIdentity>(); // only line added 
+        LocalPlayersList.Add(player.GetComponent<NetworkIdentity>());
         NetworkServer.AddPlayerForConnection(conn, player);        
     }
 
     public override void OnServerDisconnect(NetworkConnection conn)
     {
         base.OnServerDisconnect(conn);
-        
+        LocalPlayersList.Remove(LocalPlayers[conn]);
+        LocalPlayers.Remove(conn);
+
     }
 }

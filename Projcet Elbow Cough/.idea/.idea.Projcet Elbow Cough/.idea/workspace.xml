@@ -11,6 +11,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GamePlayTesting.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Network/Client/ClientInstance.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/PlayerController/Scripts/CameraControllernotMe.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.0.1/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
@@ -20,14 +21,16 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/Manager/StaticRefrences.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemieNav.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Manager/NetworkManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Client/ClientInstance.cs" />
         <option value="$PROJECT_DIR$/Assets/FPSCharacterController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/PlayerSetup.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Manager/MyNetworkManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/ClientInstance.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Manager/MyNetworkManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemieNav.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Manager/InputManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GamePlayTesting.cs" />
       </list>
     </option>
   </component>

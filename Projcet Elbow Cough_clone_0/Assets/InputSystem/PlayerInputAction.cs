@@ -73,6 +73,14 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""SpawnEnemie"",
+                    ""type"": ""Button"",
+                    ""id"": ""55dab416-3ff6-4ff6-ad49-00e20074ebf3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -337,6 +345,17 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""PickUpItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c352992d-2109-4052-9bf6-b7f0fd643d7d"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SpawnEnemie"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -921,6 +940,7 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
         m_Player_OpenInventory = m_Player.FindAction("OpenInventory", throwIfNotFound: true);
         m_Player_TestInventory = m_Player.FindAction("TestInventory", throwIfNotFound: true);
         m_Player_PickUpItem = m_Player.FindAction("PickUpItem", throwIfNotFound: true);
+        m_Player_SpawnEnemie = m_Player.FindAction("SpawnEnemie", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -989,6 +1009,7 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_OpenInventory;
     private readonly InputAction m_Player_TestInventory;
     private readonly InputAction m_Player_PickUpItem;
+    private readonly InputAction m_Player_SpawnEnemie;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -1000,6 +1021,7 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
         public InputAction @OpenInventory => m_Wrapper.m_Player_OpenInventory;
         public InputAction @TestInventory => m_Wrapper.m_Player_TestInventory;
         public InputAction @PickUpItem => m_Wrapper.m_Player_PickUpItem;
+        public InputAction @SpawnEnemie => m_Wrapper.m_Player_SpawnEnemie;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1030,6 +1052,9 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
                 @PickUpItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickUpItem;
                 @PickUpItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickUpItem;
                 @PickUpItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickUpItem;
+                @SpawnEnemie.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpawnEnemie;
+                @SpawnEnemie.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpawnEnemie;
+                @SpawnEnemie.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpawnEnemie;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1055,6 +1080,9 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
                 @PickUpItem.started += instance.OnPickUpItem;
                 @PickUpItem.performed += instance.OnPickUpItem;
                 @PickUpItem.canceled += instance.OnPickUpItem;
+                @SpawnEnemie.started += instance.OnSpawnEnemie;
+                @SpawnEnemie.performed += instance.OnSpawnEnemie;
+                @SpawnEnemie.canceled += instance.OnSpawnEnemie;
             }
         }
     }
@@ -1218,6 +1246,7 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
         void OnOpenInventory(InputAction.CallbackContext context);
         void OnTestInventory(InputAction.CallbackContext context);
         void OnPickUpItem(InputAction.CallbackContext context);
+        void OnSpawnEnemie(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
