@@ -19,6 +19,7 @@ ProBuilder Settings.json
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+\.idea
 ProBuilder Settings.json
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
