@@ -11,10 +11,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Network/Client/SetNameCanvas.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GamePlayTesting.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Network/Client/ClientInstance.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/PlayerController/Scripts/CameraControllernotMe.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.0.1/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Network/Client/PlayerName.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Network/Client/PlayerSetup.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -26,11 +28,17 @@
         <option value="$PROJECT_DIR$/Assets/FPSCharacterController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/PlayerSetup.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/ClientInstance.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Manager/MyNetworkManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemieNav.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Manager/InputManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GamePlayTesting.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Network/PlayerAnnouncer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/NamePlayer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/SetNameCanvas.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/ClientInstance.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/PlayerName.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Network/OwnerPlayerAnnouncer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/FPSCharacterController.cs" />
       </list>
     </option>
   </component>
@@ -95,6 +103,8 @@
       <workItem from="1613657799824" duration="1510000" />
       <workItem from="1613662837942" duration="3934000" />
       <workItem from="1613737495873" duration="9732000" />
+      <workItem from="1614075922590" duration="8702000" />
+      <workItem from="1614091670713" duration="7241000" />
     </task>
     <servers />
   </component>
@@ -103,4 +113,10 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="WindowStateProjectService">
+    <state x="654" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1614093623650">
+      <screen x="62" y="0" width="1858" height="1080" />
+    </state>
+    <state x="654" y="235" width="672" height="678" key="search.everywhere.popup/1982.0.1858.1080/62.0.1858.1080@62.0.1858.1080" timestamp="1614093623650" />
+  </component>
 </project>

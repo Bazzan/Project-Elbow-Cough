@@ -15,16 +15,18 @@ public class ClientInstance : NetworkBehaviour
 
 
     [Tooltip("Prefab for the player")] [SerializeField]
-    private NetworkIdentity playerPrefab = null;
+    public NetworkIdentity playerPrefab = null;
 
-
+    private GameObject currentCharacter = null;
+    private string currentName = string.Empty;
 
     public void InvokeCharacterSpawned(GameObject gameObject)
     {
+        Debug.Log("OnOwnerCharacterSpawned");
+        currentCharacter = gameObject;
         OnOwnerCharacterSpawned?.Invoke(gameObject);
+        SetPlayerName(currentName);
     }
-    
-    
     /// <summary>
     /// request a spawn for character.
     /// </summary>
@@ -33,25 +35,22 @@ public class ClientInstance : NetworkBehaviour
     {
         SpawnPlayerOnNetwork();
     }
-
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
         if (Instance != null)
-            Instance = null;
-        Instance = this;
+            Destroy(Instance);
         
+        Instance = this;
+
         CmdRequestToSpawn();
     }
-    
-
     [Server]
     private void SpawnPlayerOnNetwork()
     {
         GameObject playerGameObject = Instantiate(playerPrefab.gameObject, transform.position, quaternion.identity);
         NetworkServer.Spawn(playerGameObject, base.connectionToClient);
     }
-
     /// <summary>
     /// if the server and connection is not null.
     /// when trying to access as a server connection it
@@ -72,5 +71,20 @@ public class ClientInstance : NetworkBehaviour
         }
         else
             return Instance;
+    }
+    /// <summary>
+    /// set the name for the local client.
+    /// </summary>
+    /// <param name="name"></param>
+    public void SetPlayerName(string name)
+    {
+        Debug.Log(gameObject.name + ", " + base.hasAuthority +" this is the ClientInstance");
+
+        currentName = name;
+        if (currentCharacter != null)
+        {
+            PlayerName playerName = currentCharacter.GetComponent<PlayerName>();
+            playerName.SetName(name);
+        }
     }
 }

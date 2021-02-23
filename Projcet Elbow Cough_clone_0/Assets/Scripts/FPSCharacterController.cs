@@ -44,7 +44,6 @@ public class FPSCharacterController : NetworkBehaviour
         MovePlayer();
         transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0f);
     }
-
     private void MovePlayer()
     {
         wasdInput = InputManager.WasdInput.normalized;
@@ -73,7 +72,6 @@ public class FPSCharacterController : NetworkBehaviour
         // Debug.Log(force + "   ," + forceDirection + " " + playerVelocity);
         //Debug.Log($"force: {force}, forceDirection {forceDirection}, velocity {playerBody.velocity.magnitude}");
     }
-
     public void Jump()
     {
         if (!isLocalPlayer) return;
@@ -83,13 +81,11 @@ public class FPSCharacterController : NetworkBehaviour
             jumpVector.y += (Mathf.Sqrt(Jumpforce * -3.0f * -gravity));
         }
     }
-
     private void CalculateGravityForce()
     {
         if (!isGrounded)
             jumpVector.y += -gravity * GravityMultiplier * Time.deltaTime;
     }
-
     private void OnDrawGizmosSelected()
     {
         if (characterController == null) return;
@@ -106,10 +102,8 @@ public class FPSCharacterController : NetworkBehaviour
 
         //Gizmos.DrawLine(transform.position + playerBody.velocity.normalized ,transform.position + playerBody.velocity  );
     }
-
-
+    
     #region not used stuff
-
     private bool isGorunded()
     {
         if (Physics.Raycast(transform.position, -transform.up, out rayHit, 2f))
@@ -122,13 +116,10 @@ public class FPSCharacterController : NetworkBehaviour
             return false;
         }
     }
-
-
     private Vector3 GetNormal()
     {
         Physics.Raycast(transform.position, Vector3.down, out rayHit, 2f, GroundedMask, QueryTriggerInteraction.Ignore);
         return rayHit.normal;
     }
-
     #endregion
 }

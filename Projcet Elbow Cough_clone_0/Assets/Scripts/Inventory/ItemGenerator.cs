@@ -11,8 +11,13 @@ public class ItemGenerator : MonoBehaviour
     public void GenerateWorldItem()
     {
         Item generatedItem = armor[Random.Range(0, armor.Length)];
-        GameObject worldItem = Instantiate(itemWorldObject, spawnPoint.position, Quaternion.identity);
-        worldItem.GetComponent<ItemPickup>().SetWorldItem(generatedItem);
-        
+        SpawnWorldItem(generatedItem, spawnPoint.position);
+
+    }
+
+    public void SpawnWorldItem(Item item, Vector3 spawnPoint)
+    {
+        GameObject worldItem = Instantiate(itemWorldObject, spawnPoint, Quaternion.identity);
+        worldItem.GetComponent<ItemPickup>().SetWorldItem(item);
     }
 }
