@@ -23,9 +23,10 @@ public class ClientInstance : NetworkBehaviour
     public void InvokeCharacterSpawned(GameObject gameObject)
     {
         Debug.Log("OnOwnerCharacterSpawned");
+        
         currentCharacter = gameObject;
-        OnOwnerCharacterSpawned?.Invoke(gameObject);
         SetPlayerName(currentName);
+        OnOwnerCharacterSpawned?.Invoke(gameObject);
     }
     /// <summary>
     /// request a spawn for character.

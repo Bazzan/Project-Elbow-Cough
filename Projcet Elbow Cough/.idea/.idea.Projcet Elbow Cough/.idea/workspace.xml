@@ -35,10 +35,10 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Network/PlayerAnnouncer.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/NamePlayer.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/SetNameCanvas.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/ClientInstance.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/PlayerName.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Network/OwnerPlayerAnnouncer.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/FPSCharacterController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/ClientInstance.cs" />
       </list>
     </option>
   </component>
@@ -104,7 +104,7 @@
       <workItem from="1613662837942" duration="3934000" />
       <workItem from="1613737495873" duration="9732000" />
       <workItem from="1614075922590" duration="8702000" />
-      <workItem from="1614091670713" duration="7241000" />
+      <workItem from="1614091670713" duration="8260000" />
     </task>
     <servers />
   </component>

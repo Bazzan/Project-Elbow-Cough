@@ -438,6 +438,7 @@
             <e p="ItemGenerator.cs" t="Include" />
             <e p="ItemPickup.cs" t="Include" />
             <e p="ItemScriptableObject.cs" t="Include" />
+            <e p="ItemTooltip.cs" t="Include" />
             <e p="PlayerInventoryManager.cs" t="Include" />
           </e>
           <e p="Manager" t="Include">
