@@ -22,4 +22,9 @@ public class ItemPickup : MonoBehaviour
     {
         return item;
     }
+
+    public void KillItemPickup()
+    {
+        Destroy(gameObject);
+    }
 }

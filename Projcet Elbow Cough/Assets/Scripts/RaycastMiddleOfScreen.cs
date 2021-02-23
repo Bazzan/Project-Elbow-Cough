@@ -6,8 +6,9 @@ public class RaycastMiddleOfScreen : MonoBehaviour
 {
     [SerializeField] private float range = 100f;
     [SerializeField] private Camera cam = null;
+    [SerializeField] private ItemTooltip itemTooltip = null;
 
-    private GameObject currentObject = null;
+    private ItemPickup currentItemPickup = null;
 
     void Update()
     {
@@ -15,17 +16,24 @@ public class RaycastMiddleOfScreen : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, range) && hit.transform.gameObject.tag == "Item Pickup")
         {
-            currentObject = hit.transform.gameObject;
+            currentItemPickup = hit.transform.gameObject.GetComponent<ItemPickup>();
             Debug.Log("hit");
+            itemTooltip.ShowTooltip(GetCurrentItemPickup(), true);
         }
         else
         {
-            currentObject = null;
+            currentItemPickup = null;
+            itemTooltip.ShowTooltip(GetCurrentItemPickup(), false);
         }
     }
 
-    public Item GetCurrentObject()
+    public Item GetCurrentItemPickup()
     {
-        return currentObject.GetComponent<ItemPickup>().GetItem();
+        return currentItemPickup.GetItem();
+    }
+
+    public void KillCurrentItemPickup()
+    {
+        currentItemPickup.KillItemPickup();
     }
 }
