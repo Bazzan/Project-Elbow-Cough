@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\sebak\AppData\Local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\sebak\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_Projcet Elbow Cough.1972478835.00" t="ExcludeRecursive" />
-    <e p="D:\GithubSpace\Project-Elbow-Cough\Projcet Elbow Cough" t="IncludeRecursive">
+    <e p="C:\GithubSpace\Project-Elbow-Cough\Projcet Elbow Cough" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="FPSCharacterController.cs" t="Include" />
         <e p="InputSystem" t="Include">
           <e p="PlayerInputAction.cs" t="Include" />
         </e>
@@ -392,7 +389,32 @@
           </e>
           <e p="version.txt" t="Include" />
         </e>
-        <e p="PlayerAnimationController.cs" t="Include" />
+        <e p="ParrelSync" t="Include">
+          <e p="Examples" t="Include">
+            <e p="CustomArgumentExample.cs" t="Include" />
+          </e>
+          <e p="ParrelSync" t="Include">
+            <e p="Editor" t="Include">
+              <e p="AssetModBlock" t="Include">
+                <e p="EditorQuit.cs" t="Include" />
+                <e p="ParrelSyncAssetModificationProcessor.cs" t="Include" />
+              </e>
+              <e p="ClonesManager.cs" t="Include" />
+              <e p="ClonesManagerWindow.cs" t="Include" />
+              <e p="ExternalLinks.cs" t="Include" />
+              <e p="FileUtilities.cs" t="Include" />
+              <e p="NonCore" t="Include">
+                <e p="AskFeedbackDialog.cs" t="Include" />
+                <e p="OtherMenuItem.cs" t="Include" />
+              </e>
+              <e p="Preferences.cs" t="Include" />
+              <e p="Project.cs" t="Include" />
+              <e p="UpdateChecker.cs" t="Include" />
+            </e>
+            <e p="projectCloner.asmdef" t="Include" />
+          </e>
+          <e p="version.txt" t="Include" />
+        </e>
         <e p="PlayerController" t="Include">
           <e p="Scripts" t="Include">
             <e p="CameraControllernotMe.cs" t="Include" />
@@ -408,6 +430,8 @@
           <e p="Enemies" t="Include">
             <e p="EnemieNav.cs" t="Include" />
           </e>
+          <e p="FPSCharacterController.cs" t="Include" />
+          <e p="GamePlayTesting.cs" t="Include" />
           <e p="Inventory" t="Include">
             <e p="InventoryCanvas.cs" t="Include" />
             <e p="Item.cs" t="Include" />
@@ -418,8 +442,16 @@
           </e>
           <e p="Manager" t="Include">
             <e p="InputManager.cs" t="Include" />
+            <e p="MyNetworkManager.cs" t="Include" />
             <e p="StaticRefrences.cs" t="Include" />
           </e>
+          <e p="Network" t="Include">
+            <e p="Client" t="Include">
+              <e p="ClientInstance.cs" t="Include" />
+              <e p="PlayerSetup.cs" t="Include" />
+            </e>
+          </e>
+          <e p="PlayerAnimationController.cs" t="Include" />
           <e p="PlayerController.cs" t="Include" />
           <e p="RaycastMiddleOfScreen.cs" t="Include" />
         </e>
@@ -488,10 +520,13 @@
       <e p="Mirror.Weaver.csproj" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
+      <e p="ParrelSync.csproj" t="IncludeRecursive" />
       <e p="Projcet Elbow Cough.sln" t="IncludeFlat" />
       <e p="SimpleWebTransport.csproj" t="IncludeRecursive" />
       <e p="Telepathy.csproj" t="IncludeRecursive" />
       <e p="Temp\Bin" t="ExcludeRecursive" />
     </e>
+    <e p="C:\Users\Sebastian.Akerlund\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Sebastian.Akerlund\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_Projcet Elbow Cough.1552962004.00" t="ExcludeRecursive" />
   </component>
 </project>

@@ -11,21 +11,28 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemies/EnemieNav.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.0.1/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GamePlayTesting.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Network/Client/ClientInstance.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/PlayerController/Scripts/CameraControllernotMe.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.0.1/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Network/Client/PlayerSetup.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
-    <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/PlayerController/Scripts/CameraControllernotMe.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Manager/StaticRefrences.cs" />
-      <option value="$PROJECT_DIR$/Assets/FPSCharacterController.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Manager/InputManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Inventory/PlayerInventoryManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemieNav.cs" />
-    </changedPaths>
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/Scripts/Manager/StaticRefrences.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Manager/NetworkManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Client/ClientInstance.cs" />
+        <option value="$PROJECT_DIR$/Assets/FPSCharacterController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/PlayerSetup.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/ClientInstance.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Manager/MyNetworkManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemieNav.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Manager/InputManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GamePlayTesting.cs" />
+      </list>
+    </option>
   </component>
   <component name="ProjectId" id="1nZNpeoYKsTAHvm9ww4aND4airo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -59,7 +66,7 @@
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
       <option name="selectedOptions">
-        <list />
+        <set />
       </option>
       <method v="2" />
     </configuration>
@@ -68,7 +75,7 @@
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
       <option name="selectedOptions">
-        <list />
+        <set />
       </option>
       <method v="2" />
     </configuration>
@@ -85,6 +92,9 @@
       <workItem from="1611682534981" duration="4833000" />
       <workItem from="1612898639554" duration="7262000" />
       <workItem from="1613063851170" duration="731000" />
+      <workItem from="1613657799824" duration="1510000" />
+      <workItem from="1613662837942" duration="3934000" />
+      <workItem from="1613737495873" duration="9732000" />
     </task>
     <servers />
   </component>
