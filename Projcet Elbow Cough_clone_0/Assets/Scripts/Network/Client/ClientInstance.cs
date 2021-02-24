@@ -25,7 +25,7 @@ public class ClientInstance : NetworkBehaviour
         Debug.Log("OnOwnerCharacterSpawned");
         
         currentCharacter = gameObject;
-        SetPlayerName(currentName);
+        SetName(currentName);
         OnOwnerCharacterSpawned?.Invoke(gameObject);
     }
     /// <summary>
@@ -77,7 +77,7 @@ public class ClientInstance : NetworkBehaviour
     /// set the name for the local client.
     /// </summary>
     /// <param name="name"></param>
-    public void SetPlayerName(string name)
+    public void SetName(string name)
     {
         Debug.Log(gameObject.name + ", " + base.hasAuthority +" this is the ClientInstance");
 

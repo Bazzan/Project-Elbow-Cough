@@ -7,16 +7,8 @@ public class PlayerName : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI text;
 
     [SyncVar(hook = nameof(OnNameUpdate))] private string syncronizedName;
-    private void Awake()
-    {
-        Debug.Log(base.hasAuthority);
-         Debug.Log(NetworkClient.connection.identity + " " +  netIdentity + " " + netId);
-    }
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        // syncronizedName = ClientInstance.ReturnClientInstance().playerPrefab.gameObject.name;
-    }
+
+    
     /// <summary>
     ///syncvar hook for syncronizedName
     /// </summary>

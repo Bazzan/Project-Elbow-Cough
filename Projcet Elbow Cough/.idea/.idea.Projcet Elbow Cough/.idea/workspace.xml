@@ -30,15 +30,17 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/PlayerSetup.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Manager/MyNetworkManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemieNav.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Manager/InputManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GamePlayTesting.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Network/PlayerAnnouncer.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/NamePlayer.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/SetNameCanvas.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/PlayerName.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Network/OwnerPlayerAnnouncer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/FPSCharacterController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/ClientInstance.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Manager/InputManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/FPSCharacterController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/PlayerName.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/PsudoCombat.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Psudocode/PsudoCombat.cs" />
       </list>
     </option>
   </component>
@@ -104,7 +106,8 @@
       <workItem from="1613662837942" duration="3934000" />
       <workItem from="1613737495873" duration="9732000" />
       <workItem from="1614075922590" duration="8702000" />
-      <workItem from="1614091670713" duration="8260000" />
+      <workItem from="1614091670713" duration="8535000" />
+      <workItem from="1614163883722" duration="5953000" />
     </task>
     <servers />
   </component>

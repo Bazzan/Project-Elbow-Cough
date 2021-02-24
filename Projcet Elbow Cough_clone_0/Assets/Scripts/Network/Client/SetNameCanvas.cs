@@ -31,7 +31,7 @@ public class SetNameCanvas : MonoBehaviour
             
             Debug.Log(ci.playerPrefab.name);
             // Debug.Log(input.text);
-            ci.SetPlayerName(input.text);
+            ci.SetName(input.text);
 
         }
     }

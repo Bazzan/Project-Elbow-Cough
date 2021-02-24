@@ -26,8 +26,8 @@ public class FPSCharacterController : NetworkBehaviour
     private Vector3 cameraVelocity;
     private bool isGrounded;
     private int playerIndex;
-
-
+    private Animator animator;
+    private int animForwardID;
     private void Start()
     {
         if (!base.hasAuthority) return;
@@ -37,6 +37,8 @@ public class FPSCharacterController : NetworkBehaviour
 
         cameraTransform = Camera.main.transform;
         InputManager.playerController = this;
+        animator = GetComponentInChildren<Animator>();
+        animForwardID = "Velociy".GetHashCode();
     }
     private void Update()
     {
@@ -69,12 +71,13 @@ public class FPSCharacterController : NetworkBehaviour
         CalculateGravityForce(); //gravity
         characterController.Move(jumpVector * Time.deltaTime); // add gravity and jumpforce
 
+        animator.SetFloat("Velocity", wasdInput.y);
         // Debug.Log(force + "   ," + forceDirection + " " + playerVelocity);
         //Debug.Log($"force: {force}, forceDirection {forceDirection}, velocity {playerBody.velocity.magnitude}");
     }
     public void Jump()
     {
-        if (!isLocalPlayer) return;
+        if (!base.hasAuthority) return;
         if (isGrounded)
         {
             jumpVector.y = 0f;
@@ -83,7 +86,7 @@ public class FPSCharacterController : NetworkBehaviour
     }
     private void CalculateGravityForce()
     {
-        if (!isGrounded)
+        if (!isGrounded && base.hasAuthority)
             jumpVector.y += -gravity * GravityMultiplier * Time.deltaTime;
     }
     private void OnDrawGizmosSelected()
