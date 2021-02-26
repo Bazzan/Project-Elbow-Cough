@@ -461,6 +461,9 @@
             <e p="PsudoCombat.cs" t="Include" />
           </e>
           <e p="RaycastMiddleOfScreen.cs" t="Include" />
+          <e p="TestingCode" t="Include">
+            <e p="Testing_ShootScript.cs" t="Include" />
+          </e>
         </e>
         <e p="ScriptTemplates" t="Include">
           <e p="50-Mirror__Network Manager-NewNetworkManager.cs.txt" t="Include" />

@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-
     [SerializeField] private InventoryCanvas inventory = null; //testing inventory and item generation
     [SerializeField] private ItemGenerator itemGenerator = null;
     [SerializeField] private PlayerInventoryManager inventoryManager = null;
@@ -16,18 +16,26 @@ public class InputManager : MonoBehaviour
 
 
     public static FPSCharacterController playerController;
-
-    private GamePlayTesting gamePlayTesting;
+    public static Testing_ShootScript testingShootScript;
+    public GamePlayTesting gamePlayTesting;
 
     private void Awake()
     {
         inputActions = new PlayerInputAction();
+
         // playerController = StaticRefrences.PlayerTransform.GetComponent<FPSCharacterController>();
         // gamePlayTesting = FindObjectOfType<GamePlayTesting>();
     }
 
+    private void Start()
+    {
+        testingShootScript = playerController.GetComponent<Testing_ShootScript>();
+    }
+
+
     private void OnEnable()
     {
+        inputActions.Player.Fire.performed += OnFire;
         inputActions.Player.SpawnEnemie.performed += OnSpawnEnemie;
         inputActions.Player.Jump.performed += OnJump;
         inputActions.Player.Fire.performed += OnAttack;
@@ -46,6 +54,17 @@ public class InputManager : MonoBehaviour
     {
         WasdInput = inputActions.Player.Move.ReadValue<Vector2>();
         mouseDirection = inputActions.Player.Look.ReadValue<Vector2>();
+        if (inputActions.Player.Fire.ReadValue<float>() != 0)
+        {
+            InputAction.CallbackContext yoo = new InputAction.CallbackContext();
+            
+            OnFire(yoo);
+        }
+    }
+
+    public void OnFire(InputAction.CallbackContext callbackContext)
+    {
+        testingShootScript.CheckAttack();
 
     }
 
@@ -58,9 +77,9 @@ public class InputManager : MonoBehaviour
     {
         playerController.Jump();
     }
+
     public void OnAttack(InputAction.CallbackContext callbackContext)
     {
-
     }
 
 
@@ -79,5 +98,4 @@ public class InputManager : MonoBehaviour
         inventoryManager.PickUpArmor();
         Debug.Log("E");
     }
-
 }

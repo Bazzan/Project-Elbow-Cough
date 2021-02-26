@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class FPSCharacterController : NetworkBehaviour
 {
-    [Header("PlayerMovement")] 
-    
-    [SerializeField] private float MovementSpeed;
+    [Header("PlayerMovement")] [SerializeField]
+    private float MovementSpeed;
+
     [SerializeField] private LayerMask GroundedMask;
     [SerializeField] private float GravityMultiplier;
     [SerializeField] private float gravity;
@@ -27,7 +27,7 @@ public class FPSCharacterController : NetworkBehaviour
     private bool isGrounded;
     private int playerIndex;
     private Animator animator;
-    private int animForwardID;
+
     private void Start()
     {
         if (!base.hasAuthority) return;
@@ -37,15 +37,19 @@ public class FPSCharacterController : NetworkBehaviour
 
         cameraTransform = Camera.main.transform;
         InputManager.playerController = this;
+        
         animator = GetComponentInChildren<Animator>();
-        animForwardID = "Velociy".GetHashCode();
     }
+
     private void Update()
     {
         if (!base.hasAuthority) return;
         MovePlayer();
         transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0f);
     }
+
+    #region Movement
+
     private void MovePlayer()
     {
         wasdInput = InputManager.WasdInput.normalized;
@@ -63,10 +67,10 @@ public class FPSCharacterController : NetworkBehaviour
             Vector3 inputForce = (forceDirection * (MovementSpeed * Time.deltaTime));
             force = Vector3.ClampMagnitude(inputForce, MaxSpeed);
         }
-        
+
         characterController.Move(force); // add move force
-        
-        if (isGrounded && jumpVector.y < -0.5f) 
+
+        if (isGrounded && jumpVector.y < -0.5f)
             jumpVector.y = -0.5f;
         CalculateGravityForce(); //gravity
         characterController.Move(jumpVector * Time.deltaTime); // add gravity and jumpforce
@@ -75,6 +79,7 @@ public class FPSCharacterController : NetworkBehaviour
         // Debug.Log(force + "   ," + forceDirection + " " + playerVelocity);
         //Debug.Log($"force: {force}, forceDirection {forceDirection}, velocity {playerBody.velocity.magnitude}");
     }
+
     public void Jump()
     {
         if (!base.hasAuthority) return;
@@ -84,11 +89,16 @@ public class FPSCharacterController : NetworkBehaviour
             jumpVector.y += (Mathf.Sqrt(Jumpforce * -3.0f * -gravity));
         }
     }
+
     private void CalculateGravityForce()
     {
         if (!isGrounded && base.hasAuthority)
             jumpVector.y += -gravity * GravityMultiplier * Time.deltaTime;
     }
+
+
+    #endregion
+    
     private void OnDrawGizmosSelected()
     {
         if (characterController == null) return;
@@ -105,8 +115,9 @@ public class FPSCharacterController : NetworkBehaviour
 
         //Gizmos.DrawLine(transform.position + playerBody.velocity.normalized ,transform.position + playerBody.velocity  );
     }
-    
+
     #region not used stuff
+
     private bool isGorunded()
     {
         if (Physics.Raycast(transform.position, -transform.up, out rayHit, 2f))
@@ -119,10 +130,12 @@ public class FPSCharacterController : NetworkBehaviour
             return false;
         }
     }
+
     private Vector3 GetNormal()
     {
         Physics.Raycast(transform.position, Vector3.down, out rayHit, 2f, GroundedMask, QueryTriggerInteraction.Ignore);
         return rayHit.normal;
     }
+
     #endregion
 }
