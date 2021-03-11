@@ -260,6 +260,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   projectileVFX: {fileID: 7098402285801355356, guid: f0bc4108e7f4ad0478cc1c63d4a467be, type: 3}
+  hitVFX: {fileID: 3387293066235841534, guid: 9a1f89997f02f3d458d26027cc16282f, type: 3}
   ShootCD: 0.5
 --- !u!114 &6382025750987869904
 MonoBehaviour:

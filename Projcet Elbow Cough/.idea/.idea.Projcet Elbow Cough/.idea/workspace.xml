@@ -11,14 +11,21 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.0.1/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/TestingCode/DestroyObject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/PlayerController/Scripts/CameraControllernotMe.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.0.1/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
-    <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/Scripts/Manager/InputManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/TestingCode/Testing_ShootScript.cs" />
-    </changedPaths>
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/Scripts/TestingCode/DestroyObject.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/PlayerName.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Network/Client/ClientInstance.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/FPSCharacterController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Manager/InputManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/TestingCode/Testing_ShootScript.cs" />
+      </list>
+    </option>
   </component>
   <component name="ProjectId" id="1nZNpeoYKsTAHvm9ww4aND4airo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -54,16 +61,16 @@
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
       <option name="selectedOptions">
-        <list />
+        <set />
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="31076">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="31076" />
+      <option name="pid" />
       <option name="selectedOptions">
-        <list />
+        <set />
       </option>
       <method v="2" />
     </configuration>
@@ -88,6 +95,7 @@
       <workItem from="1614163883722" duration="5953000" />
       <workItem from="1614334613221" duration="8094000" />
       <workItem from="1615390647358" duration="3377000" />
+      <workItem from="1615469444615" duration="11098000" />
     </task>
     <servers />
   </component>
@@ -96,4 +104,10 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="WindowStateProjectService">
+    <state x="1982" y="0" width="1627" height="1067" key="dock-window-1" timestamp="1615481636961">
+      <screen x="1982" y="0" width="1858" height="1080" />
+    </state>
+    <state x="1982" y="0" width="1627" height="1067" key="dock-window-1/1982.0.1858.1080/62.0.1858.1080@62.0.1858.1080" timestamp="1615481636961" />
+  </component>
 </project>

@@ -1,5 +1,6 @@
 using System;
 using Mirror;
+using Telepathy;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -51,6 +52,7 @@ public class ClientInstance : NetworkBehaviour
     {
         GameObject playerGameObject = Instantiate(playerPrefab.gameObject, transform.position, quaternion.identity);
         NetworkServer.Spawn(playerGameObject, base.connectionToClient);
+        playerGameObject.name = playerGameObject.name + netId;
     }
     /// <summary>
     /// if the server and connection is not null.

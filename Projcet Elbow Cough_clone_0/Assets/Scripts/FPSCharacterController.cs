@@ -37,8 +37,12 @@ public class FPSCharacterController : NetworkBehaviour
 
         cameraTransform = Camera.main.transform;
         InputManager.playerController = this;
+        FindObjectOfType<InputManager>().GetComponent<InputManager>().testingShootScript =
+            GetComponent<Testing_ShootScript>();
+        // InputManager.testingShootScript = GetComponent<Testing_ShootScript>();
         
         animator = GetComponentInChildren<Animator>();
+        
     }
 
     private void Update()

@@ -25,7 +25,7 @@ public class PlayerName : NetworkBehaviour
     [Client]
     public void SetName(string name)
     {
-        Debug.Log(gameObject.name + ", " + base.hasAuthority +"this is the PlayerName class");
+        // Debug.Log(gameObject.name + ", " + base.hasAuthority +"this is the PlayerName class");
 
         CmdSetName(name);
 

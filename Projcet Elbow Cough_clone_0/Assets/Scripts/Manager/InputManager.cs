@@ -1,4 +1,5 @@
 ﻿using System;
+using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,7 +17,7 @@ public class InputManager : MonoBehaviour
 
 
     public static FPSCharacterController playerController;
-    public static Testing_ShootScript testingShootScript;
+    public Testing_ShootScript testingShootScript;
     public GamePlayTesting gamePlayTesting;
 
     private void Awake()
@@ -27,15 +28,15 @@ public class InputManager : MonoBehaviour
         // gamePlayTesting = FindObjectOfType<GamePlayTesting>();
     }
 
-    private void Start()
-    {
-        testingShootScript = playerController.GetComponent<Testing_ShootScript>();
-    }
+    // private void Start()
+    // {
+    //     testingShootScript = playerController.GetComponent<Testing_ShootScript>();
+    // }
 
 
     private void OnEnable()
     {
-        inputActions.Player.Fire.performed += OnFire;
+        // inputActions.Player.Fire.performed += OnFire;
         inputActions.Player.SpawnEnemie.performed += OnSpawnEnemie;
         inputActions.Player.Jump.performed += OnJump;
         inputActions.Player.Fire.performed += OnAttack;
@@ -56,17 +57,17 @@ public class InputManager : MonoBehaviour
         mouseDirection = inputActions.Player.Look.ReadValue<Vector2>();
         if (inputActions.Player.Fire.ReadValue<float>() != 0)
         {
-            InputAction.CallbackContext yoo = new InputAction.CallbackContext();
-            
-            OnFire(yoo);
+            // InputAction.CallbackContext yoo = new InputAction.CallbackContext();
+            testingShootScript.CheckAttack();    
+            // OnFire(yoo);
         }
     }
 
-    public void OnFire(InputAction.CallbackContext callbackContext)
-    {
-        testingShootScript.CheckAttack();
-
-    }
+    // public void OnFire(InputAction.CallbackContext callbackContext)
+    // {
+    //     testingShootScript.CheckAttack();
+    //
+    // }
 
     public void OnSpawnEnemie(InputAction.CallbackContext callbackContext)
     {

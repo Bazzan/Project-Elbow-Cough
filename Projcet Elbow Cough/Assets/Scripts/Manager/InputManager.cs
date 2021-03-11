@@ -1,4 +1,5 @@
 ﻿using System;
+using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,7 +17,7 @@ public class InputManager : MonoBehaviour
 
 
     public static FPSCharacterController playerController;
-    public static Testing_ShootScript testingShootScript;
+    public Testing_ShootScript testingShootScript;
     public GamePlayTesting gamePlayTesting;
 
     private void Awake()
@@ -27,10 +28,10 @@ public class InputManager : MonoBehaviour
         // gamePlayTesting = FindObjectOfType<GamePlayTesting>();
     }
 
-    private void Start()
-    {
-        testingShootScript = playerController.GetComponent<Testing_ShootScript>();
-    }
+    // private void Start()
+    // {
+    //     testingShootScript = playerController.GetComponent<Testing_ShootScript>();
+    // }
 
 
     private void OnEnable()
