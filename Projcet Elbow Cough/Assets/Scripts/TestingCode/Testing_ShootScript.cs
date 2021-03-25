@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
-using System.Threading;
 using Mirror;
 using UnityEngine;
-
+//TODO: make clients spawn stuff
 public class Testing_ShootScript : NetworkBehaviour
 {
     [SerializeField] private GameObject projectileVFX = null;
@@ -17,28 +15,26 @@ public class Testing_ShootScript : NetworkBehaviour
 
     private float maxPositionOffset = 1f;
     private Collider[] colliders;
+
     private void Awake()
     {
         // InputManager.testingShootScript = this;
         networkAnimator = GetComponent<NetworkAnimator>();
         Camera = Camera.main;
         colliders = GetComponentsInChildren<Collider>();
-
     }
 
 //TODO: working on clients not over network
     public void CheckAttack()
     {
+        if (!base.hasAuthority) return;
         if (Time.time < nextAttackTime) return;
-
-        // StartCoroutine(SpawnProjectile()); //fortsätt med positions spawn o network raycast
         nextAttackTime = Time.time + ShootCD;
-        Debug.Log("shoot");
 
-        StartCoroutine(SpawnProjectile(transform.position, Camera.transform.rotation));
+        StartCoroutine(SpawnProjectile(transform.position, Camera.transform.rotation, Camera.transform.forward));
+        //TODO: set networkAnimation trigger
+        CmdShoot(transform.position, Camera.transform.rotation,Camera.transform.forward);
         
-        //set networkAnimation trigger
-        CmdShoot(transform.position, Camera.transform.forward);
     }
 
     /// <summary>
@@ -47,23 +43,25 @@ public class Testing_ShootScript : NetworkBehaviour
     /// <param name="position"></param>
     /// <param name="direction"></param>
     [Command]
-    private void CmdShoot(Vector3 position, Vector3 direction)
+    private void CmdShoot(Vector3 position, Quaternion direction, Vector3 vectorDirection)
     {
-        if (Time.time < nextAttackTime) return; // anti cd remove hack
+        // if (Time.time < nextAttackTime) return; // anti cd remove hack
         nextAttackTime = Time.time + ShootCD;
 
+        // direction = direction.normalized;
         //if position client used it too far from position on server the cap position
-        if (Vector3.Distance(position, transform.position) > maxPositionOffset
-        ) // simple anti cheat (shoting from thier position)
+        // simple anti cheat (shoting from thier position)
+        if (Vector3.Distance(position, transform.position) > maxPositionOffset)
         {
             Vector3 posDirection = position - transform.position;
             position = transform.position + (posDirection * maxPositionOffset);
+            Debug.Log("cmdShoot anti cheat");
         }
 
         // //spawn projectile on server
-        StartCoroutine(SpawnProjectile(transform.position, Camera.transform.rotation)); //not needed?
+        //StartCoroutine(SpawnProjectile(position, direction)); //not needed?
         //tell other clients to spawn projectile
-        RpcShoot(position, direction);
+        RpcShoot(position, direction, vectorDirection);
     }
 
 
@@ -73,25 +71,29 @@ public class Testing_ShootScript : NetworkBehaviour
     /// <param name="position"></param>
     /// <param name="direction"></param>
     [ClientRpc]
-    private void RpcShoot(Vector3 position, Vector3 direction)
+    private void RpcShoot(Vector3 position, Quaternion direction, Vector3 vectorDirection)
     {
-        //already run localy
-        if (base.hasAuthority) return;
-        StartCoroutine(SpawnProjectile(position,Quaternion.Euler(direction)) );
+        //already run locally on owner
+        if (base.hasAuthority)
+        {
+            Debug.Log("RPCshoot, has authorty");
+            return;
+        }
+        StartCoroutine(SpawnProjectile(position, direction, vectorDirection));
     }
 
-    private void TraceForHits(Vector3 position, Vector3 direction)
+    private void TraceForHits(Vector3 position, Vector3 vectorDirection)
     {
-        Ray ray = new Ray(position, direction.normalized);
+        Ray ray = new Ray(position, vectorDirection);
         RaycastHit hit;
-        
         EnableColliders(false);
         if (Physics.Raycast(ray, out hit, 1000f))
         {
             Debug.Log("hit " + hit.collider.name);
-            if (base.isClient) //only instansiate if is a client
-                Instantiate(hitVFX, hit.point, Quaternion.identity);
+             if (base.isClient) //only instansiate if is a client
+            Instantiate(hitVFX, hit.point, Quaternion.identity);
         }
+        Debug.Log("traceForHits " + vectorDirection + "  " + vectorDirection.normalized);
 
         EnableColliders(true);
     }
@@ -103,30 +105,26 @@ public class Testing_ShootScript : NetworkBehaviour
             colliders[i].enabled = active;
         }
     }
-    
-    private IEnumerator SpawnProjectile(Vector3 position, Quaternion direction)
+
+    private IEnumerator SpawnProjectile(Vector3 position, Quaternion direction, Vector3 vectorDirection)
     {
-        TraceForHits(position, direction * Vector3.forward);
+        GameObject particle;
+        TraceForHits(position, vectorDirection);
+        if (base.isClient)
+            particle = Instantiate(projectileVFX, position, direction);
+        // NetworkServer.Spawn(particle);
+        Debug.Log(direction);
+// base.is
+        yield return null;
 
-        if (base.isClient) // run vfx on clients only
-        {
-            // Ray ray = Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            GameObject particle =
-                Instantiate(projectileVFX, position,direction);
-            Debug.Log(direction.eulerAngles.normalized);
-            // Debug.Log(Quaternion.Euler(direction).normalized);
-
-            // Debug.Log(numberOfTImes);
-            float endTime = Time.time + 10f;
-            float moveSpeed = 1f;
-            WaitForEndOfFrame wait = new WaitForEndOfFrame();
-
-            while (Time.time < endTime)
-            {
-                // particle.transform.position += (direction.eulerAngles * (moveSpeed * Time.deltaTime));
-                yield return wait;
-            }
-
-        }
+        // float endTime = Time.time + 10f;
+        // float moveSpeed = 1f;
+        // WaitForEndOfFrame wait = new WaitForEndOfFrame();
+        //
+        // while (Time.time < endTime)
+        // {
+        //     // particle.transform.position += (direction.eulerAngles * (moveSpeed * Time.deltaTime));
+        //     yield return wait;
+        // }
     }
 }

@@ -24,19 +24,13 @@ public class InputManager : MonoBehaviour
     {
         inputActions = new PlayerInputAction();
 
-        // playerController = StaticRefrences.PlayerTransform.GetComponent<FPSCharacterController>();
         // gamePlayTesting = FindObjectOfType<GamePlayTesting>();
     }
 
-    // private void Start()
-    // {
-    //     testingShootScript = playerController.GetComponent<Testing_ShootScript>();
-    // }
 
 
     private void OnEnable()
     {
-        // inputActions.Player.Fire.performed += OnFire;
         inputActions.Player.SpawnEnemie.performed += OnSpawnEnemie;
         inputActions.Player.Jump.performed += OnJump;
         inputActions.Player.Fire.performed += OnAttack;
@@ -57,9 +51,7 @@ public class InputManager : MonoBehaviour
         mouseDirection = inputActions.Player.Look.ReadValue<Vector2>();
         if (inputActions.Player.Fire.ReadValue<float>() != 0)
         {
-            // InputAction.CallbackContext yoo = new InputAction.CallbackContext();
             testingShootScript.CheckAttack();    
-            // OnFire(yoo);
         }
     }
 
